@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- Page last generated 2018-07-09 17:33:05 +0000 -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to prepare Rust release notes &middot; The Rust Programming Language</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust">
+    <meta name="description" content="A systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/forge.css">
+    <link rel="stylesheet" href="/rust-forge/css/bootstrap.css">
+    <link rel="stylesheet" href="/rust-forge/css/style.css">
+    <link rel="stylesheet" href="/rust-forge/css/forge.css">
+  </head>
+
+  <body class="container">
+
+    <header>
+
+    <ul class="row menu">
+      <li class="col-xs-12 col-md-2">
+        <a href="index.html">
+	  <!-- FIXME: absolute urls -->
+          <img class="img-responsive" src="https://www.rust-lang.org/logos/rust-logo-blk.svg" onerror="this.src='https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'" height="128" width="128" alt="Rust logo" />
+        </a>
+      </li>
+      <li class="col-xs-12 col-md-6 menu">
+	<h1>Rust Forge</h1>
+      </li>
+    </ul>
+    </header>
+
+    <div class="content"><p>The release notes for the next release should be compiled at the beginning of
+the beta cycle, 6 weeks ahead of the release.</p>
+
+<p>Clone the <a href="https://github.com/Aaronepower/relnotes">relnotes</a> utility. This program pulls all pull requests made against
+<code class="highlighter-rouge">rust-lang/rust</code> and <code class="highlighter-rouge">rust-lang/cargo</code> within the latest release cycle and
+prints out a markdown document containing all the pull requests, categorised
+into their respective sections where possible, and prints the document to
+<code class="highlighter-rouge">stdout</code>.</p>
+
+<p>Only pull requests that impact stable users of Rust should be included.
+Generally, more exciting items go toward the top of sections. Most items are
+simply links to the PR that landed them; some that need more explanation have
+additional, unlinked text; anything supported by an RFC has an additional RFC
+link. Reuse the PR titles or write descriptions as needed for clarity.</p>
+
+<p>Try to keep the language of the document independent of en-US or en-UK, when
+it can’t be avoided defer to en-US grammar and syntax.</p>
+
+</div>
+
+  </body>
+</html>

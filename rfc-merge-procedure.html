@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- Page last generated 2018-07-09 17:33:05 +0000 -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RFC Merge Procedure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust">
+    <meta name="description" content="A systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/forge.css">
+    <link rel="stylesheet" href="/rust-forge/css/bootstrap.css">
+    <link rel="stylesheet" href="/rust-forge/css/style.css">
+    <link rel="stylesheet" href="/rust-forge/css/forge.css">
+  </head>
+
+  <body class="container">
+
+    <header>
+
+    <ul class="row menu">
+      <li class="col-xs-12 col-md-2">
+        <a href="index.html">
+	  <!-- FIXME: absolute urls -->
+          <img class="img-responsive" src="https://www.rust-lang.org/logos/rust-logo-blk.svg" onerror="this.src='https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'" height="128" width="128" alt="Rust logo" />
+        </a>
+      </li>
+      <li class="col-xs-12 col-md-6 menu">
+	<h1>Rust Forge</h1>
+      </li>
+    </ul>
+    </header>
+
+    <div class="content"><p>Once an RFC has been accepted (i.e., the final comment period is
+complete, and no major issues were raised), it must be merged. Right now this is a manual process,
+though just about anyone can do it (if you’re not a subteam member,
+though, you’ll have to open a PR rather than merge the RFC
+manually). Here is the complete set of steps to merge an RFC – in
+some cases, not all the steps will be applicable.</p>
+
+<h3 id="step-1-open-tracking-issue">Step 1: Open tracking issue</h3>
+
+<p>Open a tracking issue over on rust-lang/rust. Here is a
+template for the issue text. You’ll have to adjust the various places
+labeled XXX with some suitable content (e.g., the name of the RFC, or
+the most appropriate team).</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This is a tracking issue for the RFC "XXX" (rust-lang/rfcs#NNN).
+
+**Steps:**
+
+- [ ] Implement the RFC (cc @rust-lang/XXX -- can anyone write up mentoring instructions?)
+- [ ] Adjust documentation ([see instructions on forge][doc-guide])
+- [ ] Stabilization PR ([see instructions on forge][stabilization-guide])
+
+[stabilization-guide]: https://forge.rust-lang.org/stabilization-guide.html
+[doc-guide]: https://forge.rust-lang.org/stabilization-guide.html#updating-documentation
+
+**Unresolved questions:**
+
+XXX --- list all the "unresolved questions" found in the RFC
+        to ensure they are not forgotten
+</code></pre></div></div>
+
+<p>Add the following labels to the issue:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">B-rfc-approved</code></li>
+  <li>the approriate <code class="highlighter-rouge">T-XXX</code> label</li>
+</ul>
+
+<p>(If you don’t have permissions to do so, leave a note cc’ing the
+appropriate team and asking them to do so.)</p>
+
+<h3 id="step-2-merge-the-rfc-pr-itself">Step 2: Merge the RFC PR itself</h3>
+
+<p>In your local git checkout:</p>
+
+<ul>
+  <li>Merge the RFC PR into master in your fork</li>
+  <li>Add a commit that moves the file name from 0000- to its RFC number</li>
+  <li>Edit the new file to include links to the RFC PR and the tracking issue you just created
+in the header</li>
+  <li>Open a PR or push directly to the master branch on rust-lang/rfcs, as appropriate</li>
+</ul>
+
+<h3 id="step-3-leave-a-comment">Step 3: Leave a comment</h3>
+
+<p>Leave a final comment on the PR directing everyone to the tracking
+issue. Something like this, but feel free to add your own personal
+flavor (and change the team):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**Huzzah!** The @rust-lang/lang team has decided **to accept** this RFC. 
+
+To track further discussion, subscribe to the tracking issue here: rust-lang/rust#41517
+</code></pre></div></div>
+
+<h3 id="step-4-update-the-rendered-link">Step 4: Update the rendered link</h3>
+
+<p>Update the rendered link in the first post of the PR to the permanent home under
+<code class="highlighter-rouge">https://github.com/rust-lang/rfcs/blob/master/text/</code>.</p>
+
+<p>(This way future visitors can open it easily after the PR branch is deleted.)</p>
+
+<h3 id="thats-it-youre-done">That’s it, you’re done!</h3>
+
+</div>
+
+  </body>
+</html>

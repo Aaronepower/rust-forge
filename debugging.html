@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!-- Page last generated 2018-07-09 17:33:05 +0000 -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Debugging the Compiler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust">
+    <meta name="description" content="A systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/forge.css">
+    <link rel="stylesheet" href="/rust-forge/css/bootstrap.css">
+    <link rel="stylesheet" href="/rust-forge/css/style.css">
+    <link rel="stylesheet" href="/rust-forge/css/forge.css">
+  </head>
+
+  <body class="container">
+
+    <header>
+
+    <ul class="row menu">
+      <li class="col-xs-12 col-md-2">
+        <a href="index.html">
+	  <!-- FIXME: absolute urls -->
+          <img class="img-responsive" src="https://www.rust-lang.org/logos/rust-logo-blk.svg" onerror="this.src='https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'" height="128" width="128" alt="Rust logo" />
+        </a>
+      </li>
+      <li class="col-xs-12 col-md-6 menu">
+	<h1>Rust Forge</h1>
+      </li>
+    </ul>
+    </header>
+
+    <div class="content"><h1 id="debugging-the-compiler">Debugging the compiler</h1>
+
+<p>Here are a few tips to debug the compiler:</p>
+
+<h2 id="getting-a-backtrace">Getting a backtrace</h2>
+
+<p>When you have an ICE (panic in the compiler), you can set
+<code class="highlighter-rouge">RUST_BACKTRACE=1</code> to get the stack trace of the <code class="highlighter-rouge">panic!</code> like in
+normal Rust programs.  IIRC backtraces <strong>don’t work</strong> on Mac and on MinGW,
+sorry. If you have trouble or the backtraces are full of <code class="highlighter-rouge">unknown</code>,
+you might want to find some way to use Linux or MSVC on Windows.</p>
+
+<p>In the default configuration, you don’t have line numbers enabled, so the backtrace looks like this:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stack backtrace:
+   0: std::sys::imp::backtrace::tracing::imp::unwind_backtrace
+   1: std::sys_common::backtrace::_print
+   2: std::panicking::default_hook::
+   3: std::panicking::default_hook
+   4: std::panicking::rust_panic_with_hook
+   5: std::panicking::begin_panic
+   6: rustc_typeck::check::cast::&lt;impl rustc_typeck::check::FnCtxt&lt;'a, 'gcx, 'tcx&gt;&gt;::pointer_kind
+   (~~~~ LINES REMOVED BY ME FOR BREVITY ~~~~)
+  32: rustc_typeck::check_crate
+  33: &lt;std::thread::local::LocalKey&lt;T&gt;&gt;::with
+  34: &lt;std::thread::local::LocalKey&lt;T&gt;&gt;::with
+  35: rustc::ty::context::TyCtxt::create_and_enter
+  36: rustc_driver::driver::compile_input
+  37: rustc_driver::run_compiler
+</code></pre></div></div>
+
+<p>If you want line numbers for the stack trace, you can enable <code class="highlighter-rouge">debuginfo-lines=true</code> or <code class="highlighter-rouge">debuginfo=true</code> in your config.toml and rebuild the compiler. Then the backtrace will look like this:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stack backtrace:
+   (~~~~ LINES REMOVED BY ME FOR BREVITY ~~~~)
+   6: rustc_typeck::check::cast::&lt;impl rustc_typeck::check::FnCtxt&lt;'a, 'gcx, 'tcx&gt;&gt;::pointer_kind
+             at /home/user/rust/src/librustc_typeck/check/cast.rs:110
+   7: rustc_typeck::check::cast::CastCheck::check
+             at /home/user/rust/src/librustc_typeck/check/cast.rs:572
+             at /home/user/rust/src/librustc_typeck/check/cast.rs:460
+             at /home/user/rust/src/librustc_typeck/check/cast.rs:370
+   (~~~~ LINES REMOVED BY ME FOR BREVITY ~~~~)
+  33: rustc_driver::driver::compile_input
+             at /home/user/rust/src/librustc_driver/driver.rs:1010
+             at /home/user/rust/src/librustc_driver/driver.rs:212
+  34: rustc_driver::run_compiler
+             at /home/user/rust/src/librustc_driver/lib.rs:253
+</code></pre></div></div>
+
+<h2 id="getting-a-backtrace-for-errors">Getting a backtrace for errors</h2>
+
+<p>If you want to get a backtrace to the point where the compiler emits
+an error message, you can pass the <code class="highlighter-rouge">-Z treat-err-as-bug</code>, which
+will make the compiler panic on the first error it sees.</p>
+
+<p>This can also help when debugging <code class="highlighter-rouge">delay_span_bug</code> calls - it will make
+the first <code class="highlighter-rouge">delay_span_bug</code> call panic, which will give you a useful backtrace.</p>
+
+<p>For example:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat error.rs
+fn main() {
+    1 + ();
+}
+$ ./build/x86_64-unknown-linux-gnu/stage1/bin/rustc error.rs
+error[E0277]: the trait bound `{integer}: std::ops::Add&lt;()&gt;` is not satisfied
+ --&gt; error.rs:2:7
+  |
+2 |     1 + ();
+  |       ^ no implementation for `{integer} + ()`
+  |
+  = help: the trait `std::ops::Add&lt;()&gt;` is not implemented for `{integer}`
+
+error: aborting due to previous error
+
+$ # Now, where does the error above come from?
+$ RUST_BACKTRACE=1 \
+    ./build/x86_64-unknown-linux-gnu/stage1/bin/rustc \
+    error.rs \
+    -Z treat-err-as-bug
+error[E0277]: the trait bound `{integer}: std::ops::Add&lt;()&gt;` is not satisfied
+ --&gt; error.rs:2:7
+  |
+2 |     1 + ();
+  |       ^ no implementation for `{integer} + ()`
+  |
+  = help: the trait `std::ops::Add&lt;()&gt;` is not implemented for `{integer}`
+
+error: internal compiler error: unexpected panic
+
+note: the compiler unexpectedly panicked. this is a bug.
+
+note: we would appreciate a bug report: https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md#bug-reports
+
+note: rustc 1.24.0-dev running on x86_64-unknown-linux-gnu
+
+note: run with `RUST_BACKTRACE=1` for a backtrace
+
+thread 'rustc' panicked at 'encountered error with `-Z treat_err_as_bug', /home/user/rust/src/librustc_errors/lib.rs:411:12
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+stack backtrace:
+  (~~~ IRRELEVANT PART OF BACKTRACE REMOVED BY ME ~~~)
+   7: rustc::traits::error_reporting::&lt;impl rustc::infer::InferCtxt&lt;'a, 'gcx, 'tcx&gt;&gt;::report_selection_error
+             at /home/user/rust/src/librustc/traits/error_reporting.rs:823
+   8: rustc::traits::error_reporting::&lt;impl rustc::infer::InferCtxt&lt;'a, 'gcx, 'tcx&gt;&gt;::report_fulfillment_errors
+             at /home/user/rust/src/librustc/traits/error_reporting.rs:160
+             at /home/user/rust/src/librustc/traits/error_reporting.rs:112
+   9: rustc_typeck::check::FnCtxt::select_obligations_where_possible
+             at /home/user/rust/src/librustc_typeck/check/mod.rs:2192
+  (~~~ IRRELEVANT PART OF BACKTRACE REMOVED BY ME ~~~)
+  36: rustc_driver::run_compiler
+             at /home/user/rust/src/librustc_driver/lib.rs:253
+$ # Cool, now I have a backtrace for the error
+</code></pre></div></div>
+
+<h2 id="getting-logging-output">Getting logging output</h2>
+
+<p>The compiler has a lot of <code class="highlighter-rouge">debug!</code> calls, which print out logging information
+at many points. These are very useful to at least narrow down the location of
+a bug if not to find it entirely, or just to orient yourself to why a compiler
+is doing a particular thing.</p>
+
+<p>To see the logs, you need to set the <code class="highlighter-rouge">RUST_LOG</code> environment variable to
+your log filter, e.g. to get the logs for a specific module, you can run the
+compiler as <code class="highlighter-rouge">RUST_LOG=module::path rustc my-file.rs</code>. The Rust logs are
+powered by <a href="https://docs.rs/env_logger/0.4.3/env_logger/">env-logger</a>, and you can look at the docs linked there to see
+the full <code class="highlighter-rouge">RUST_LOG</code> syntax. All <code class="highlighter-rouge">debug!</code> output will then appear in
+standard error.</p>
+
+<p>Note that unless you use a very strict filter, the logger will emit a <em>lot</em>
+of output - so it’s typically a good idea to pipe standard error to a file
+and look at the log output with a text editor.</p>
+
+<p>So to put it together.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># This puts the output of all debug calls in `librustc/traits` into
+# standard error, which might fill your console backscroll.
+$ RUST_LOG=rustc::traits rustc +local my-file.rs
+
+# This puts the output of all debug calls in `librustc/traits` in
+# `traits-log`, so you can then see it with a text editor.
+$ RUST_LOG=rustc::traits rustc +local my-file.rs 2&gt;traits-log
+
+# Not recommended. This will show the output of all `debug!` calls
+# in the Rust compiler, and there are a *lot* of them, so it will be
+# hard to find anything.
+$ RUST_LOG=debug rustc +local my-file.rs 2&gt;all-log
+
+# This will show the output of all `info!` calls in `rustc_trans`.
+#
+# There's an `info!` statement in `trans_instance` that outputs
+# every function that is translated. This is useful to find out
+# which function triggers an LLVM assertion, and this is an `info!`
+# log rather than a `debug!` log so it will work on the official
+# compilers.
+$ RUST_LOG=rustc_trans=info rustc +local my-file.rs
+</code></pre></div></div>
+
+<p>While calls to <code class="highlighter-rouge">info!</code> are included in every build of the compiler,
+calls to <code class="highlighter-rouge">debug!</code> are only included in the program if the
+<code class="highlighter-rouge">debug-assertions=yes</code> is turned on in config.toml (it is
+turned off by default), so if you don’t see <code class="highlighter-rouge">DEBUG</code> logs, especially
+if you run the compiler with <code class="highlighter-rouge">RUST_LOG=rustc rustc some.rs</code> and only see
+<code class="highlighter-rouge">INFO</code> logs, make sure that <code class="highlighter-rouge">debug-assertions=yes</code> is turned on in your
+config.toml.</p>
+
+<p>I also think that in some cases just setting it will not trigger a rebuild,
+so if you changed it and you already have a compiler built, you might
+want to call <code class="highlighter-rouge">x.py clean</code> to force one.</p>
+
+<h3 id="logging-etiquette">Logging etiquette</h3>
+
+<p>Because calls to <code class="highlighter-rouge">debug!</code> are removed by default, in most cases, don’t worry
+about adding “unnecessary” calls to <code class="highlighter-rouge">debug!</code> and leaving them in in code
+you commit - they won’t slow
+down the performance of what we ship, and if they helped you pinning down
+a bug, they will probably help someone else with a different one.</p>
+
+<p>However, there are still a few concerns that you might care about:</p>
+
+<h3 id="expensive-operations-in-logs">Expensive operations in logs</h3>
+
+<p>A note of caution: the expressions <em>within</em> the <code class="highlighter-rouge">debug!</code> call are run
+whenever RUST_LOG is set, even if the filter would exclude the log. This means that if in the module <code class="highlighter-rouge">rustc::foo</code> you have a statement</p>
+
+<pre><code class="language-Rust">debug!("{:?}", random_operation(tcx));
+</code></pre>
+
+<p>Then if someone runs a debug <code class="highlighter-rouge">rustc</code> with <code class="highlighter-rouge">RUST_LOG=rustc::bar</code>, then <code class="highlighter-rouge">random_operation()</code> will still run - even while it’s output will never be needed!</p>
+
+<p>This means that you should not put anything too expensive or likely
+to crash there - that would annoy anyone who wants to use logging for their own module. Note that if <code class="highlighter-rouge">RUST_LOG</code> is unset (the default), then the code will not run - this means that if your logging code panics, then no-one will know it until someone tries to use logging to find <em>another</em> bug.</p>
+
+<p>If you <em>need</em> to do an expensive operation in a log, be aware that while log expressions are <em>evaluated</em> even if logging is not enabled in your module, they are not <em>formatted</em> unless it <em>is</em>. This means you can put your expensive/crashy operations inside an <code class="highlighter-rouge">fmt::Debug</code> impl, and they will not be run unless your log is enabled:</p>
+
+<pre><code class="language-Rust">use std::fmt;
+
+struct ExpensiveOperationContainer&lt;'a, 'gcx, 'tcx&gt;
+    where 'tcx: 'gcx, 'a: 'tcx
+{
+    tcx: TyCtxt&lt;'a, 'gcx, 'tcx&gt;
+}
+
+impl&lt;'a, 'gcx, 'tcx&gt; fmt::Debug for ExpensiveOperationContainer&lt;'a, 'gcx, 'tcx&gt; {
+    fn fmt(&amp;self, fmt: &amp;mut fmt::Formatter) -&gt; fmt::Result {
+        let value = random_operation(tcx);
+        fmt::Debug::fmt(&amp;value, fmt)
+    }
+}
+
+debug!("{:?}", ExpensiveOperationContainer { tcx });
+</code></pre>
+
+<h2 id="formatting-graphviz-output-dot-files">Formatting Graphviz output (.dot files)</h2>
+
+<p>Some compiler options for debugging specific features yield graphviz graphs - e.g.
+the <code class="highlighter-rouge">#[rustc_mir(borrowck_graphviz_postflow="suffix.dot")]</code> attribute
+dumps various borrow-checker dataflow graphs.</p>
+
+<p>These all produce <code class="highlighter-rouge">.dot</code> files. To view these files, install graphviz (e.g.
+<code class="highlighter-rouge">apt-get install graphviz</code>) and then run the following commands:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ dot -T pdf maybe_init_suffix.dot &gt; maybe_init_suffix.pdf
+$ firefox maybe_init_suffix.pdf # Or your favorite pdf viewer
+</code></pre></div></div>
+
+<h2 id="debugging-llvm">Debugging LLVM</h2>
+
+<p>LLVM is a big project on its own that probably needs to have its own debugging
+document (not that I could find one). But here are some tips that are important
+in a rustc context:</p>
+
+<p>The official compilers (including nightlies) have LLVM assertions disabled,
+which means that LLVM assertion failures can show up as compiler crashes (not
+ICEs but “real” crashes) and other sorts of weird behavior. If you are
+encountering these, it is a good idea to try using a compiler with LLVM
+assertions enabled - either an “alt” nightly or a compiler you build yourself
+by setting <code class="highlighter-rouge">[llvm] assertions=true</code> in your config.toml - and
+see whether anything turns up.</p>
+
+<p>The rustc build process builds the LLVM tools into <code class="highlighter-rouge">./build/&lt;host-triple&gt;/llvm/bin</code>. They can be called directly.</p>
+
+<p>The default rustc compilation pipeline has multiple codegen units, which is hard
+to replicate manually and means that LLVM is called multiple times in parallel.
+If you can get away with it (i.e. if it doesn’t make your bug disappear),
+passing <code class="highlighter-rouge">-C codegen-units=1</code> to rustc will make debugging easier.</p>
+
+<p>If you want to play with the optimization pipeline, you can use the <code class="highlighter-rouge">opt</code> from
+there on the IR rustc emits with <code class="highlighter-rouge">--emit=llvm-ir</code>. Note
+that rustc emits different IR depending on whether <code class="highlighter-rouge">-O</code> is enabled, even without
+LLVM’s optimizations, so if you want to play with the IR rustc emits, you should:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rustc +local my-file.rs --emit=llvm-ir -O -C no-prepopulate-passes \
+    -C codegen-units=1
+$ OPT=./build/$TRIPLE/llvm/bin/opt
+$ $OPT -S -O2 &lt; my-file.ll &gt; my
+</code></pre></div></div>
+
+<p>If you just want to get the LLVM IR during the LLVM pipeline, to e.g. see which
+IR causes an optimization-time assertion to fail, or to see when
+LLVM performs a particular optimization, you can pass the rustc flag
+<code class="highlighter-rouge">-C llvm-args=-print-after-all</code>, and possibly add
+<code class="highlighter-rouge">-C llvm-args='-filter-print-funcs=EXACT_FUNCTION_NAME</code> (e.g.
+<code class="highlighter-rouge">-C llvm-args='-filter-print-funcs=_ZN11collections3str21_$LT$impl$u20$str$GT$7replace17hbe10ea2e7c809b0bE'</code>).</p>
+
+<p>That produces a lot of output into standard error, so you’ll want to pipe
+that to some file. Also, if you are using neither <code class="highlighter-rouge">-filter-print-funcs</code> nor
+<code class="highlighter-rouge">-C codegen-units=1</code>, then, because the multiple codegen units run in parallel,
+the printouts will mix together and you won’t be able to read anything.</p>
+
+<p>If you want just the IR for a specific function (say, you want to see
+why it causes an assertion or doesn’t optimize correctly), you can use
+<code class="highlighter-rouge">llvm-extract</code>, e.g.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./build/$TRIPLE/llvm/bin/llvm-extract \
+    -func='_ZN11collections3str21_$LT$impl$u20$str$GT$7replace17hbe10ea2e7c809b0bE' \
+    -S \
+    &lt; unextracted.ll \
+    &gt; extracted.ll
+</code></pre></div></div>
+
+</div>
+
+  </body>
+</html>

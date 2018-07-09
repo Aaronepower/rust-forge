@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- Page last generated 2018-07-09 17:33:05 +0000 -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>So you want to stabilize a feature?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust">
+    <meta name="description" content="A systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/forge.css">
+    <link rel="stylesheet" href="/rust-forge/css/bootstrap.css">
+    <link rel="stylesheet" href="/rust-forge/css/style.css">
+    <link rel="stylesheet" href="/rust-forge/css/forge.css">
+  </head>
+
+  <body class="container">
+
+    <header>
+
+    <ul class="row menu">
+      <li class="col-xs-12 col-md-2">
+        <a href="index.html">
+	  <!-- FIXME: absolute urls -->
+          <img class="img-responsive" src="https://www.rust-lang.org/logos/rust-logo-blk.svg" onerror="this.src='https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'" height="128" width="128" alt="Rust logo" />
+        </a>
+      </li>
+      <li class="col-xs-12 col-md-6 menu">
+	<h1>Rust Forge</h1>
+      </li>
+    </ul>
+    </header>
+
+    <div class="content"><p>Once we have decided to <strong>stabilize</strong> a feature, we need to have a PR that actually makes that stabilization happen. These kinds of PRs are a great way to get involved in Rust, as they take you on a little tour through the source code. Here is a general guide to how to stabilize a feature – every feature is different, of course, so some features may require steps beyond what this guide talks about.</p>
+
+<p><strong>IMPORTANT:</strong> Before we stabilize any feature, note that we also have a rule that it should appear in the documentation. This is often overlooked. =) How to do this is the last section of this guide.</p>
+
+<h3 id="updating-the-feature-gate-listing">Updating the feature-gate listing</h3>
+
+<p>There is a central listing of feature-gates in <code class="highlighter-rouge">src/libsyntax/feature_gate.rs</code>. Search for the <code class="highlighter-rouge">declare_features!</code> macro. In there, you should find an entry for the feature you are aiming to stabilize, something like (this example is taken from <a href="https://github.com/rust-lang/rust/issues/32409">rust-lang/rust#32409</a>:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c">// pub(restricted) visibilities (RFC 1422)</span>
+    <span class="p">(</span><span class="n">active</span><span class="p">,</span> <span class="n">pub_restricted</span><span class="p">,</span> <span class="s">"1.9.0"</span><span class="p">,</span> <span class="nf">Some</span><span class="p">(</span><span class="mi">32409</span><span class="p">)),</span>
+</code></pre></div></div>
+
+<p>You want to move this line down to the area for “accepted” features, declared below in a separate call to <code class="highlighter-rouge">declare_features!</code>. So when you’re done it should look like:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c">// pub(restricted) visibilities (RFC 1422)</span>
+    <span class="p">(</span><span class="n">accepted</span><span class="p">,</span> <span class="n">pub_restricted</span><span class="p">,</span> <span class="s">"1.17.0"</span><span class="p">,</span> <span class="nf">Some</span><span class="p">(</span><span class="mi">32409</span><span class="p">)),</span>
+    <span class="c">//                          ^^^^^^ note that we changed this</span>
+</code></pre></div></div>
+
+<p>Note that we will change the version number to be the version number of the stable release where this feature will appear. This can be found by consulting <a href="https://forge.rust-lang.org/">https://forge.rust-lang.org/</a>, which will tell you the next stable release number. You want to add 1 to that, because the code that lands today will become go into beta on that date, and then become stable after that. So, at the time of this writing, the next stable release (what is currently beta, iow) was 1.16.0, hence I wrote 1.17.0 above.</p>
+
+<h3 id="removing-existing-uses-of-the-feature-gate">Removing existing uses of the feature-gate</h3>
+
+<p>Next you will want to search for the feature string (in this case, <code class="highlighter-rouge">pub_restricted</code>) in the codebase to find where it appears. You can change uses of <code class="highlighter-rouge">#![feature(XXX)]</code> from the stdlib and rustc crates to be <code class="highlighter-rouge">#![cfg_attr(stage0, feature(XXX))]</code>. This includes the feature-gate only for stage0, which is built using the current beta (this is needed because the feature is still unstable in the current beta).</p>
+
+<p>Similarly, you can remove those strings from any tests. If there are tests specifically targeting the feature-gate (i.e., testing that the feature-gate is required to use the feature, but nothing else), you can simply remove the test.</p>
+
+<h3 id="do-not-require-the-feature-gate-to-use-the-feature">Do not require the feature-gate to use the feature</h3>
+
+<p>Most importantly, you want to remove the code which flags an error if the feature-gate is not present (since the feature is now considered stable). If the feature can be detected because it employs some new syntax, then a common place for that code to be is in the same <code class="highlighter-rouge">feature_gate.rs</code>. For example, you might see code like this:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">gate_feature_post!</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">pub_restricted</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="s">"`pub(restricted)` syntax is experimental"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This <code class="highlighter-rouge">gate_feature_post!</code> macro prints an error if the <code class="highlighter-rouge">pub_restricted</code> feature is not enabled. It is not needed now that <code class="highlighter-rouge">#[pub_restricted]</code> is stable.</p>
+
+<p>For more subtle features, you may find code like this:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="k">self</span><span class="py">.tcx.sess.features</span><span class="nf">.borrow</span><span class="p">()</span><span class="py">.pub_restricted</span> <span class="p">{</span> <span class="cm">/* XXX */</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>This <code class="highlighter-rouge">pub_restricted</code> field (obviously named after the feature) would ordinarily be false if the feature flag is not present, and true if it is. So you can transform the code to assume that the field is true. In this case, that would mean removing the <code class="highlighter-rouge">if</code> and leaving just the <code class="highlighter-rouge">/* XXX */</code>.</p>
+
+<p>Some examples:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="k">self</span><span class="py">.tcx.sess.features</span><span class="nf">.borrow</span><span class="p">()</span><span class="py">.pub_restricted</span> <span class="p">{</span> <span class="cm">/* XXX */</span> <span class="p">}</span>
+<span class="o">=</span> <span class="n">becomes</span> <span class="o">=</span><span class="k">=&gt;</span>
+<span class="cm">/* XXX */</span>
+
+<span class="k">if</span> <span class="k">self</span><span class="py">.tcx.sess.features</span><span class="nf">.borrow</span><span class="p">()</span><span class="py">.pub_restricted</span> <span class="o">&amp;&amp;</span> <span class="n">something</span> <span class="p">{</span> <span class="cm">/* XXX */</span> <span class="p">}</span>
+<span class="o">=</span> <span class="n">becomes</span> <span class="o">=</span><span class="k">=&gt;</span>
+<span class="k">if</span> <span class="n">something</span> <span class="p">{</span> <span class="cm">/* XXX */</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="updating-documentation">Updating documentation</h3>
+
+<p>If any documentation for this feature exists, it should be in the <code class="highlighter-rouge">Unstable Book</code>, located at <code class="highlighter-rouge">src/doc/unstable-book</code>.
+Regardless of its existence, the page for the feature gate should be removed.</p>
+
+<p>If there was documentation there, integrating it into the existing documentation is needed.</p>
+
+<p>If there wasn’t documentation there, it needs to be added.</p>
+
+<p>Places that may need updated documentation:</p>
+
+<ul>
+  <li><a href="https://github.com/rust-lang-nursery/reference">The Reference</a>: this must be updated, in full detail.</li>
+  <li><a href="https://github.com/rust-lang/book">The Book</a>: this may or may not need
+updating, depending. If you’re not sure, please open an issue on this
+repository and it can be discussed.</li>
+  <li>standard library documentation: as needed. Language features often don’t need this, but if it’s a
+feature that changes how good examples are written, such as when <code class="highlighter-rouge">?</code> was added to the language,
+updating examples is important.</li>
+  <li><a href="https://github.com/rust-lang/rust-by-example">Rust by Example</a>: as needed.</li>
+</ul>
+</div>
+
+  </body>
+</html>
