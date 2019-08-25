@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Release Channel Layout - Rust Forge</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Supplemental documentation for contributing to The Rust Programming Language">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../index.html">Overview</a></li><li><a href="../compiler/index.html">Compiler</a></li><li><ol class="section"><li><a href="../compiler/bug-fix-procedure.html">Bug Fix Procedure</a></li><li><a href="../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li><a href="../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li><a href="../compiler/profile-queries.html">Profiling Queries</a></li></ol></li><li><a href="../infra/index.html">Infrastructure</a></li><li><ol class="section"><li><a href="../infra/other-installation-methods.html">Other Installation Methods</a></li><li><a href="../infra/channel-layout.html" class="active">Release Channel Layout</a></li><li><a href="../infra/service-infrastructure.html">Service Infrastructure</a></li><li><a href="../infra/team-maintenance.html">Team Maintenance</a></li><li><a href="../infra/toolstate.html">The Toolstate System</a></li></ol></li><li><a href="../lang/index.html">Language</a></li><li><ol class="section"><li><a href="../lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li></ol></li><li><a href="../release/index.html">Release</a></li><li><ol class="section"><li><a href="../release/beta-backporting.html">Beta Backporting</a></li><li><a href="../release/platform-support.html">Platform Support</a></li><li><a href="../release/release-notes.html">Preparing Release Notes</a></li><li><a href="../release/process.html">Release Process</a></li><li><a href="../release/triage-procedure.html">Triage Procedure</a></li></ol></li><li><a href="../archive/index.html">Archive</a></li><li><ol class="section"><li><a href="../archive/fott.html">Friends of the Tree</a></li><li><a href="../archive/release-history.html">Release History</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Forge</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                            <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
+                                <i id="git-repository-button" class="fa fa-github"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#the-rust-release-channel-layout" id="the-rust-release-channel-layout">The Rust Release Channel Layout</a></h1>
+<p><strong>NOTE</strong> This document should be considered incomplete and descriptive rather
+than normative. Do not rely on anything described herein to be fully correct or
+a definition of how things <em>should</em> be done.</p>
+<p>A lot of the content herein is derived from
+<a href="https://internals.rust-lang.org/t/future-updates-to-the-rustup-distribution-format/4196#the-static-rust-lang-org-layout">a posting made to the Rust internals forum by Brian Anderson back in 2016</a>.</p>
+<p>Rust releases are deployed onto <code>static.rust-lang.org</code> where they are served via
+<code>https</code>. There are several parts to a release channel (<code>stable</code>, <code>beta</code>,
+<code>nightly</code>) but they all key off a manifest file and then go from there.</p>
+<h2><a class="header" href="#channel-manifests" id="channel-manifests">Channel manifests</a></h2>
+<p>There is a top level directory <code>/dist/</code> which contains the channel manifests.
+The manifests are named <code>channel-rust-[channelname].toml</code>. Each channel manifest
+is accompanied by a <code>.sha256</code> file which is a checksum of the manifest file and
+can be used to check integrity of the downloaded data. In addition each
+channel's manifest is also accompanied by a <code>.asc</code> file which is a detached GPG
+signature which can be used to check not only the integrity but also the
+authenticity of the channel manifest.</p>
+<p>In addition to the <code>stable</code>, <code>beta</code>, and <code>nightly</code> channels, there is also a
+manifest for each release which will be called <code>channel-rust-x.yy.z.toml</code> with
+its associated <code>.sha256</code> and <code>.asc</code> files.</p>
+<p>To support date-based channels, there is an archive folder for each day
+(labelled <code>YYYY-MM-DD</code>) which contains copies of the requisite channel files on
+that day. So, for example, if you installed <code>nightly-2019-02-16</code> then the
+channel file would be
+<a href="https://static.rust-lang.org/dist/2019-02-16/channel-rust-nightly.toml">https://static.rust-lang.org/dist/2019-02-16/channel-rust-nightly.toml</a>.</p>
+<h3><a class="header" href="#content-of-channel-manifests" id="content-of-channel-manifests">Content of channel manifests</a></h3>
+<p>Channel manifests are <code>toml</code> files. These are known as <em>v2</em> manifests. The <em>v1</em>
+manifests are simply lists of the files associated with a release and are not
+generated for every channel all of the time. Currently it is recommended to work
+only with the <em>v2</em> manifests and these are the topic of this section.</p>
+<p>The top level of the <code>.toml</code> file consists of two important key/value pairs.
+Firstly the <code>manifest-version</code> which is, at this time, <code>&quot;2&quot;</code>, and secondly the
+date of the manifest (<code>date</code>) whose value is of the form <code>&quot;YYYY-MM-DD&quot;</code>.</p>
+<p>There are then a number of top level sections (tables) which are:</p>
+<ul>
+<li>
+<p><code>pkg</code> - This contains the bulk of the manifest and lists the packages which
+are part of the release. Typically this will be things like <code>rust</code>, <code>rustc</code>,
+<code>cargo</code> etc. The <code>rust</code> package is semi-special and currently is used to
+specify the subset of other packages which will be installed by default.</p>
+<p>Within packages are <code>components</code> and <code>extensions</code>. Currently <code>components</code> are
+installed by default by <code>rustup</code>, <code>extensions</code> are optional components and are
+available via <code>rustup component add</code> and friends.</p>
+</li>
+<li>
+<p><code>renames</code> - This contains a set of package renames which can be used to
+determine the correct package to fetch when the user enters an alias for it.</p>
+<p>Typically renames are used when a package leaves its preview state and is
+considered to be release quality. For example, the actual package for
+<code>rustfmt</code> is called <code>rustfmt-preview</code> but since its release there has been a
+<code>renames.rustfmt</code> table whose <code>to</code> field is <code>rustfmt</code>. When the user runs
+<code>rustup component add rustfmt</code> the name is automatically translated to
+<code>rustfmt-preview</code> and when the user runs <code>rustup component list</code> then
+<code>rustfmt-preview</code> is automatically renamed back to <code>rustfmt</code> for display to
+the user.</p>
+</li>
+<li>
+<p><code>profiles</code> - This is part of the future setup for deciding the default
+component set to install. Instead of choosing the <code>components</code> of <code>pkg.rust</code>
+instead <code>rustup</code> will honour one of the entries in the <code>profiles</code> table.
+Usually this will be the <code>default</code> entry which <em>essentially</em> (though not
+exactly) boils down to
+<code>[&quot;rustc&quot;, &quot;cargo&quot;, &quot;rust-std&quot;, &quot;rust-docs&quot;, &quot;rustfmt&quot;, &quot;clippy&quot;]</code>.</p>
+<p>Other profiles include <code>minimal</code> (<code>[&quot;rustc&quot;, &quot;cargo&quot;, &quot;rust-std&quot;]</code>) and
+<code>complete</code> which adds in additional tools such as the <code>rls</code>, a copy of the
+standard library source (<code>rust-src</code>), <code>miri</code>, <code>lldb</code>, <code>llvm-tools</code>, and
+<code>rust-analysis</code>.</p>
+</li>
+</ul>
+<h3><a class="header" href="#package-entries-in-the-channel-manifest" id="package-entries-in-the-channel-manifest">Package entries in the channel manifest</a></h3>
+<p>As stated above, packages list their components and extensions (mostly just the
+<code>rust</code> package) and they can provide per-target tarball and sha256 data.</p>
+<p>For example, a package might be:</p>
+<pre><code class="language-toml">[pkg.cargo.target.powerpc64-unknown-linux-gnu]
+available = true
+url = &quot;https://static.rust-lang.org/dist/2019-05-23/cargo-0.36.0-powerpc64-unknown-linux-gnu.tar.gz&quot;
+hash = &quot;279f3a84f40e3547a8532c64643f38068accb91c21f04cd16e46579c893f5a06&quot;
+xz_url = &quot;https://static.rust-lang.org/dist/2019-05-23/cargo-0.36.0-powerpc64-unknown-linux-gnu.tar.xz&quot;
+xz_hash = &quot;cf93b387508f4aea4e64f8b4887d70cc07a00906b981dc0c143e92e918682e4a&quot;
+</code></pre>
+<p>Here you can see that this is for the <code>cargo</code> package, and for the
+<code>powerpc64-unknown-linux-gnu</code> target. The <code>url</code>/<code>hash</code> combo is for a <code>.tar.gz</code>
+and the <code>xz_url</code>/<code>xz_hash</code> pair for the same tarball compressed with <code>xz</code>.
+Either pair of url and hash could be present, both may be present, but it is not
+useful for neither to be present unless <code>available</code> is set to <code>false</code> to
+indicate that that particular combiantion of package and target is unavailable
+in this channel at this time.</p>
+<p>In addition, there will be a single entry providing the version for a package in
+the form:</p>
+<pre><code class="language-toml">[pkg.cargo]
+version = &quot;0.36.0 (6f3e9c367 2019-04-04)&quot;
+</code></pre>
+<p>Here <code>version</code> will be effectively the <code>$tool --version</code> output, minus the
+tool's name.</p>
+<h2><a class="header" href="#targets" id="targets">Targets</a></h2>
+<p>Targets are the same triples you might use when building something with
+<code>cargo build --target=$target</code> and you can add them to your installation using
+<code>rustup target add $target</code>. When you do that, what <code>rustup</code> actually does is to
+find the <code>rust-std</code> package for the target in question and installs that.
+Essentially like an imaginary <code>rustup component add rust-std.$target</code>.</p>
+<p>If a <code>rust-std</code> package for a target is not <code>available = true</code> then that target
+cannot be installed via <code>rustup</code>. This can happen for lower tier targets from
+time to time.</p>
+<p>Since components and extensions are target-specific in the <code>pkg</code> tables, you
+will be able to see that <code>rust-std</code> for every target is specified in every
+<code>rust</code> target's extensions. This allows for cross-compilation by installation of
+any <code>rust-std</code> on any build system.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../infra/other-installation-methods.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../infra/service-infrastructure.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../infra/other-installation-methods.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../infra/service-infrastructure.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

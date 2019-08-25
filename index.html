@@ -1,131 +1,215 @@
-<!DOCTYPE html>
-<!-- Page last generated 2018-07-09 17:33:05 +0000 -->
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>The Rust Forge</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust">
-    <meta name="description" content="A systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.">
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/forge.css">
-    <link rel="stylesheet" href="/rust-forge/css/bootstrap.css">
-    <link rel="stylesheet" href="/rust-forge/css/style.css">
-    <link rel="stylesheet" href="/rust-forge/css/forge.css">
-  </head>
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Overview - Rust Forge</title>
+        
 
-  <body class="container">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Supplemental documentation for contributing to The Rust Programming Language">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
 
-    <header>
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
 
-    <ul class="row menu">
-      <li class="col-xs-12 col-md-2">
-        <a href="index.html">
-	  <!-- FIXME: absolute urls -->
-          <img class="img-responsive" src="https://www.rust-lang.org/logos/rust-logo-blk.svg" onerror="this.src='https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'" height="128" width="128" alt="Rust logo" />
-        </a>
-      </li>
-      <li class="col-xs-12 col-md-6 menu">
-	<h1>Rust Forge</h1>
-      </li>
-    </ul>
-    </header>
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
-    <div class="content"><p>This site contains supplementary documentation useful to the members
-of <a href="https://www.rust-lang.org">The Rust Project</a>. To edit it submit
-PRs against <a href="https://github.com/rust-lang-nursery/rust-forge">rust-lang-nursery/rust-forge</a>.</p>
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
 
-<div id="release_info"></div>
+        <!-- Custom theme stylesheets -->
+        
 
-<hr />
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
 
-<h3 id="interested-in-hacking-the-compiler">Interested in hacking the compiler?</h3>
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
 
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="index.html" class="active">Overview</a></li><li><a href="compiler/index.html">Compiler</a></li><li><ol class="section"><li><a href="compiler/bug-fix-procedure.html">Bug Fix Procedure</a></li><li><a href="compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li><a href="compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li><a href="compiler/profile-queries.html">Profiling Queries</a></li></ol></li><li><a href="infra/index.html">Infrastructure</a></li><li><ol class="section"><li><a href="infra/other-installation-methods.html">Other Installation Methods</a></li><li><a href="infra/channel-layout.html">Release Channel Layout</a></li><li><a href="infra/service-infrastructure.html">Service Infrastructure</a></li><li><a href="infra/team-maintenance.html">Team Maintenance</a></li><li><a href="infra/toolstate.html">The Toolstate System</a></li></ol></li><li><a href="lang/index.html">Language</a></li><li><ol class="section"><li><a href="lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li></ol></li><li><a href="release/index.html">Release</a></li><li><ol class="section"><li><a href="release/beta-backporting.html">Beta Backporting</a></li><li><a href="release/platform-support.html">Platform Support</a></li><li><a href="release/release-notes.html">Preparing Release Notes</a></li><li><a href="release/process.html">Release Process</a></li><li><a href="release/triage-procedure.html">Triage Procedure</a></li></ol></li><li><a href="archive/index.html">Archive</a></li><li><ol class="section"><li><a href="archive/fott.html">Friends of the Tree</a></li><li><a href="archive/release-history.html">Release History</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Forge</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                            <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
+                                <i id="git-repository-button" class="fa fa-github"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#rust-forge" id="rust-forge">Rust Forge</a></h1>
+<p>Welcome to the Rust Forge! Rust Forge serves as a repository of supplementary
+documentation useful for members of <a href="https://rust-lang.org">The Rust Programming Language</a>. If
+you find any mistakes, typos, or want to add to the Rust Forge. Feel free to
+file an issue or PR on the <a href="https://github.com/rust-lang/rust-forge">Rust Forge GitHub</a>.</p>
+<h1><a class="header" href="#external-links" id="external-links">External Links</a></h1>
 <ul>
-  <li><a href="https://rust-lang-nursery.github.io/rustc-guide/">The rustc-guide is a book about how rustc works</a></li>
-  <li><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/">The rustc API docs are hosted here</a></li>
-  <li><a href="x-py.html">Building rustc with x.py</a>.</li>
-  <li><a href="debugging.html">Debugging the compiler</a>. Tips for debugging the compiler.</li>
-  <li><a href="profile-queries.html">Profile queries</a>. Tips for tracking what the compiler does.</li>
-  <li><a href="rustc-bug-fix-procedure.html">Rustc bug fix procedure</a>: Describes the process for bug fixes that may cause existing code to stop
-compiling.</li>
-  <li><a href="feature-guide.html">So you want to implement a feature?</a>: Describes the procedure for implementing new features in rustc.</li>
-  <li><a href="stabilization-guide.html">So you want to stabilize a feature?</a>: Describes the procedure for stabilizing features in rustc.</li>
+<li><a href="https://rust-lang.github.io/rustc-guide/appendix/bibliography.html">Bibliography</a> of research papers and other projects that influenced Rust.</li>
+<li>[Rust Pontoon] is a translation management system used to localize the Rust
+website.</li>
 </ul>
 
-<h3 id="interested-in-infrastructure-and-the-release-process">Interested in infrastructure and the release process?</h3>
+                    </main>
 
-<ul>
-  <li><a href="https://buildbot2.rust-lang.org/homu/queue/rust">The current PR testing queue</a></li>
-  <li><a href="https://rust-lang-nursery.github.io/rustc-pr-tracking/">The PR queue over time</a></li>
-  <li><a href="https://rust-lang-nursery.github.io/rust-toolstate/">Toolstate (rls, rustfmt, clippy)</a></li>
-  <li><a href="releases.html">Release history</a>. Links to previous release artifacts.</li>
-  <li><a href="platform-support.html">Platform support</a>.</li>
-  <li><a href="release-process.html">Release process</a>. How to make releases of Rust.</li>
-  <li><a href="release-notes.html">How to prepare Rust release notes</a>.</li>
-  <li><a href="beta-backporting.html">Beta backporting</a>. The mystery of the oft-misinterpreted <code class="highlighter-rouge">beta-nominated</code> / <code class="highlighter-rouge">beta-accepted</code> tags finally revealed.</li>
-  <li><a href="infrastructure.html">Bots, websites and infrastructure</a>. A catalog of the IRC bots, websites and other infrastructure used by the project, what they do, and who maintains them (i.e. who to contact when they malfunction and go on a bot rampage).</li>
-  <li><a href="https://buildbot2.rust-lang.org/homu/">Homu/Bors Syntax</a></li>
-</ul>
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
 
-<h3 id="meta-processes-managing-the-rfc-repo-teams-etc">Meta-processes: managing the RFC repo, teams, etc</h3>
+                        
+                            <a rel="next" href="compiler/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
 
-<ul>
-  <li><a href="rfc-merge-procedure.html">RFC merge procedure</a></li>
-  <li><a href="rustc-team-maintenance.html">Team maintenance</a></li>
-  <li><a href="triage-procedure.html">Issue &amp; PR Triage Procedure</a></li>
-</ul>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
 
-<h3 id="other-things">Other things</h3>
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
 
-<ul>
-  <li><a href="fott.html">Friend of the Tree archives</a>.</li>
-  <li><a href="bibliography.html">Bibliography</a>. Research papers and other links to projects that influenced Rust. Papers about Rust.</li>
-  <li><a href="cross-compilation/index.html">Cross compilation resources</a></li>
-</ul>
+                
+                    <a href="compiler/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
 
-<script>
+        </div>
 
-document.addEventListener("DOMContentLoaded", function() {
+        
 
-  // rust 1.5's release date
-  var prevDate = new Date('2015-12-11');
-  // #nevertwopointoh -- we render "1." in the string literals below, this is easier to increment
-  var prevRelease = 5;
+        
 
-  var nextDate = new Date('2016-01-22');
-  var nextRelease = 6;
+        
 
-  var nextNextDate = new Date('2016-03-04');
-  var nextNextRelease = 7;
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
 
-  while (Date.now() > nextDate) {
-    prevDate = new Date(nextDate);
-    // there are 6 weeks in between releases
-    nextDate.setDate(nextDate.getDate() + (7 * 6));
-    nextNextDate.setDate(nextNextDate.getDate() + (7 * 6));
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
-    prevRelease += 1;
-    nextRelease += 1;
-    nextNextRelease += 1;
-  }
+        <!-- Custom JS scripts -->
+        
 
-  prevDate = prevDate.toDateString();
-  nextDate = nextDate.toDateString();
-  nextNextDate = nextNextDate.toDateString();
+        
 
-  var toWrite = "<hr/><h3>Release Dates</h3>";
-
-  toWrite += "<p>Rust 1." + prevRelease + " stable was released on " + prevDate + ".</p>";
-  toWrite += "<p><h4>Rust 1." + nextRelease + " stable will be released on " + nextDate + ".</h4></p>";
-  toWrite += "<p>Rust 1." + nextNextRelease + " stable will be released on " + nextNextDate + ".</p>";
-
-  document.getElementById('release_info').innerHTML = toWrite;
-});
-</script>
-
-</div>
-
-  </body>
+    </body>
 </html>

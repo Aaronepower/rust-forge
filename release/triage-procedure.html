@@ -1,0 +1,468 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Triage Procedure - Rust Forge</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Supplemental documentation for contributing to The Rust Programming Language">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../index.html">Overview</a></li><li><a href="../compiler/index.html">Compiler</a></li><li><ol class="section"><li><a href="../compiler/bug-fix-procedure.html">Bug Fix Procedure</a></li><li><a href="../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li><a href="../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li><a href="../compiler/profile-queries.html">Profiling Queries</a></li></ol></li><li><a href="../infra/index.html">Infrastructure</a></li><li><ol class="section"><li><a href="../infra/other-installation-methods.html">Other Installation Methods</a></li><li><a href="../infra/channel-layout.html">Release Channel Layout</a></li><li><a href="../infra/service-infrastructure.html">Service Infrastructure</a></li><li><a href="../infra/team-maintenance.html">Team Maintenance</a></li><li><a href="../infra/toolstate.html">The Toolstate System</a></li></ol></li><li><a href="../lang/index.html">Language</a></li><li><ol class="section"><li><a href="../lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li></ol></li><li><a href="../release/index.html">Release</a></li><li><ol class="section"><li><a href="../release/beta-backporting.html">Beta Backporting</a></li><li><a href="../release/platform-support.html">Platform Support</a></li><li><a href="../release/release-notes.html">Preparing Release Notes</a></li><li><a href="../release/process.html">Release Process</a></li><li><a href="../release/triage-procedure.html" class="active">Triage Procedure</a></li></ol></li><li><a href="../archive/index.html">Archive</a></li><li><ol class="section"><li><a href="../archive/fott.html">Friends of the Tree</a></li><li><a href="../archive/release-history.html">Release History</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Forge</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                            <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
+                                <i id="git-repository-button" class="fa fa-github"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#triage-procedure" id="triage-procedure">Triage Procedure</a></h1>
+<h2><a class="header" href="#pull-request-triage" id="pull-request-triage">Pull Request Triage</a></h2>
+<h3><a class="header" href="#status-tags" id="status-tags">Status Tags</a></h3>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-author">S-waiting-on-author</a> - Author needs to make changes to address reviewer
+comments, or merge conflicts/test failures are present. This also covers more
+obscure cases, like a PR being blocked on another, or waiting for a <a href="https://github.com/rust-lang-nursery/crater">crater</a>
+run -- it is the author's responsibility to push the PR forward.</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-review">S-waiting-on-review</a> - Review is incomplete</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-team+sort%3Aupdated-desc">S-waiting-on-team</a> - A T- label is marked, and team has been cc-ed for
+feedback.</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-bors+sort%3Aupdated-asc">S-waiting-on-bors</a> - Currently approved, waiting to merge. Managed by <a href="https://github.com/rust-lang/homu">Bors</a>.</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-crater+sort%3Aupdated-asc">S-waiting-on-crater</a> - Waiting to see what the impact the PR will have on the
+ecosystem</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-bikeshed+sort%3Aupdated-asc">S-waiting-on-bikeshed</a> - Waiting on the consensus over a minor detail</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-perf+sort%3Aupdated-asc">S-waiting-on-perf</a> - Waiting on the results of a perf run</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-blocked+sort%3Aupdated-asc">S-blocked</a> - Waiting for another PR to be merged or for discussion to be
+resolved</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Apr+label%3AS-blocked-closed+sort%3Aupdated-asc">S-blocked-closed</a> - Closed because resolving the block is expected to take a
+long time</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Apr+label%3AS-inactive-closed+sort%3Aupdated-asc">S-inactive-closed</a> - Closed due to inactivity.</li>
+</ul>
+<h3><a class="header" href="#procedure" id="procedure">Procedure</a></h3>
+<p><strong>IMPORTANT:</strong> Whenever you do PR triage, please fill out the following form:
+<a href="https://goo.gl/forms/YKYVFYjBq28Hm3qQ2">goo.gl/forms/YKYVFYjBq28Hm3qQ2</a>. If you
+want to create a bookmark for yourself, you can adapt
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSfdcbG9tSX49LuY9h1NCLKb6oU4tGalB3PrkN6yIHHWaptUbw/viewform?entry.1711461865=YOUR_GITHUB_USERNAME">this link</a>
+to prefill your GitHub username.</p>
+<p><em>Note:</em> When you are pinging people in triage comments, you should mention that
+you are doing triage in the comment you post. For example, start your comments
+with something like &quot;Ping from triage ...&quot;.&quot;</p>
+<p>First ensure that the status tag matches the current state of the PR. Change the
+tag if necessary, and apply the procedure for the new tag.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprno3aassigneeunassigned-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprno3aassigneeunassigned-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+no%3Aassignee">Unassigned PRs</a></a></h4>
+<p>All PRs that have no assignee (except rollups) should be assigned to a random
+member of the responsible team.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsutf8e29c93qis3aopen20is3apr20sort3aupdated-asc20-label3as-waiting-on-author20-label3as-waiting-on-team20-label3as-waiting-on-bors20-label3as-waiting-on-crater20-label3as-waiting-on-team20-label3as-waiting-on-review20-label3as-blocked20-label3as-waiting-on-bikeshed20-label3as-waiting-on-fcp20-label3as-waiting-on-perfunlabeled-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsutf8e29c93qis3aopen20is3apr20sort3aupdated-asc20-label3as-waiting-on-author20-label3as-waiting-on-team20-label3as-waiting-on-bors20-label3as-waiting-on-crater20-label3as-waiting-on-team20-label3as-waiting-on-review20-label3as-blocked20-label3as-waiting-on-bikeshed20-label3as-waiting-on-fcp20-label3as-waiting-on-perfunlabeled-prsa"><a href="https://github.com/rust-lang/rust/pulls?utf8=%E2%9C%93&amp;q=is%3Aopen%20is%3Apr%20sort%3Aupdated-asc%20-label%3AS-waiting-on-author%20-label%3AS-waiting-on-team%20-label%3AS-waiting-on-bors%20-label%3AS-waiting-on-crater%20-label%3AS-waiting-on-team%20-label%3AS-waiting-on-review%20-label%3AS-blocked%20-label%3AS-waiting-on-bikeshed%20-label%3AS-waiting-on-fcp%20-label%3AS-waiting-on-perf">Unlabeled PRs</a></a></h4>
+<p>All unlabeled PRs should be processed. The steps below are not mutually
+exclusive, any number of them may apply.</p>
+<p>When <strong>no review has happened</strong>, if the PR is a work in progress (e.g., test
+failures, merge conflict) mark <code>S-waiting-on-author</code>. Otherwise, mark
+<code>S-waiting-on-review</code>. If no human has checked in yet and you don't recognise
+the submitter as a regular contributor, leave a comment saying something like
+&quot;Thanks for the PR! We’ll periodically check in on it to make sure that
+@reviewer or someone else from the team reviews it soon.&quot;</p>
+<p>At this point, all PRs must have a tag applied.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprsort3aupdated-asclabel3as-waiting-on-authors-waiting-on-author-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprsort3aupdated-asclabel3as-waiting-on-authors-waiting-on-author-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-author">S-waiting-on-author PRs</a></a></h4>
+<p>PRs with, roughly, more than a week of inactivity need to be processed. These
+can be found by looking at the &quot;updated X days ago&quot; on GitHub's PR list.</p>
+<p>If the author hasn't responded for more than a week to a request for changes or
+a status update, ping the author on GitHub asking for them to check in on the
+PR's state. If they've given advance warning that they are unavailable for a
+period of time and therefore won't be able to address comments, do not ping
+until after that time. It is a good idea to start the message with &quot;Ping from
+Triage...&quot; so that the concerned parties know it is coming from the triage team.</p>
+<p>If the author has not responded to a previous ping, meaning more than 2 weeks
+have passed with no activity, the PR should be closed with a message thanking
+the author for their work, asking the them to reopen when they have a chance to
+make the necessary changes, and warning them not to push to the PR while it is
+closed as that prevents it from being reopened. Tag the PR with
+<code>S-inactive-closed</code>.</p>
+<p><em>TIP</em>: if an author is unavailable and you know they won't have a chance to come
+to a PR for a while, you can 'bump' the PR by removing and readding the tag
+(note that removing/readding requires clicking off the tag selection dropdown
+between the two actions).</p>
+<p>If the PR is blocked on another PR, issue, or some kind of discussion, add a
+comment clearly identifying what is blocking the PR (something like &quot;This PR
+appears to be blocked on #12345&quot;) and change the state to <code>S-blocked</code>. Follow
+the instruction for <code>S-blocked</code> to determine whether you should also close the
+PR.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprsort3aupdated-asclabel3as-waiting-on-reviews-waiting-on-review-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprsort3aupdated-asclabel3as-waiting-on-reviews-waiting-on-review-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-review">S-waiting-on-review PRs</a></a></h4>
+<p>PRs with, roughly, more than a week of inactivity need to be processed. These
+can be found by looking at the &quot;updated X days ago&quot; on GitHub's PR list.</p>
+<p>If the review is complete the label should be changed from <code>S-waiting-on-review</code>
+to <code>S-waiting-on-author</code>.</p>
+<p>Otherwise, the reviewer should be pinged. It is a good idea to start the message
+with &quot;Ping from Triage...&quot; so that the concerned parties know it is coming from
+the triage team, and the message should be asking the reviewer to either review
+or update a review of the PR. If the reviewer has already been pinged, meaning
+more than 2 weeks have passed with no activity, another reviewer on their team
+should be pinged. Note that if the reviewer has expressed that they are busy, do
+not ping them until they are available again. If the PR is not already labeled
+with a team (<code>T-</code>), find the team assigned to the PR's issue which should have a
+<code>T-</code> label.</p>
+<p>The <code>r?</code> command is needed to override a reviewer, however not all triagers will
+have sufficient permissions. In this case sending a message to the <code>#triage-wg</code>
+Discord or pinging @Dylan-DPC will be necessary.</p>
+<p>If the PR is blocked on another PR, add a comment clearly identifying the
+blocking PR (something like &quot;This PR appears to be blocked on #12345&quot;) and
+change the state to <code>S-blocked</code>.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-teamsort3aupdated-descs-waiting-on-team-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-teamsort3aupdated-descs-waiting-on-team-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-team+sort%3Aupdated-desc">S-waiting-on-team PRs</a></a></h4>
+<p>PRs active within the last 4 days or inactive for greater than 2 weeks need to
+be processed. These can be found by looking at the &quot;updated X days ago&quot; on
+GitHub's PR list.</p>
+<p>First, ensure that the status tag matches the current state of the PR. Change
+the tag if necessary, and apply the procedure for the new tag now. Verify that
+there is a T- tag for all PRs that remain in this category.</p>
+<p>If the PR has been inactive for greater than 2 weeks, add the <code>I-nominated</code>
+label and ping the team, requesting a new assignee or other appropriate action.</p>
+<p>If there has been recent activity, the team might have taken some action meaning
+the state has changed but the label has not yet been updated. Therefore, we also
+check the most recent ones.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-borssort3aupdated-ascs-waiting-on-bors-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-borssort3aupdated-ascs-waiting-on-bors-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-bors+sort%3Aupdated-asc">S-waiting-on-bors PRs</a></a></h4>
+<p><a href="https://github.com/rust-lang/homu">Bors</a> automatically manages this label but human intervention may be required
+if there is an issue.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-cratersort3aupdated-ascs-waiting-on-crater-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-cratersort3aupdated-ascs-waiting-on-crater-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-crater+sort%3Aupdated-asc">S-waiting-on-crater PRs</a></a></h4>
+<p>All PRs should be processed.</p>
+<p>If the PR has been active in the last three days, make sure it's present on the
+crater
+<a href="https://docs.google.com/spreadsheets/d/1VPi_7ErvvX76fa3VqvQ3YnQmDk3bS7fYnkzvApIWkKo/edit#gid=0">spreadsheet</a>.
+Fill in the link to the PR and set status as &quot;Pending&quot;.</p>
+<p>If crater has been run and results include failures, change the tag to
+<code>S-waiting-on-review</code> for the reviewer to be responsible for deciding what
+should be done with the information provided by the failures.</p>
+<p>If crater has been run and the results do not include failures, change the tag
+to <code>S-waiting-on-review</code> for the reviewer to take one last look and approve.</p>
+<p>If crater has not been run and it has been more than 3 days since a crater run
+was requested, ping the last three distinct listed people on the spreadsheet in
+the infra irc channel and request a crater run.</p>
+<p>If crater has been started (the person starting should leave a comment) and it
+has been more than 5 days since an update, ping the person starting the run on
+IRC and GitHub.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-bikeshedsort3aupdated-ascs-waiting-on-bikesheda" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-bikeshedsort3aupdated-ascs-waiting-on-bikesheda"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-bikeshed+sort%3Aupdated-asc">S-waiting-on-bikeshed</a></a></h4>
+<p>PRs inactive for greater than 7 days need to be processed. These can be found by
+looking at the &quot;updated X days ago&quot; on GitHub's PR list.</p>
+<p>Find the source of the discussion and see if it has been resolved.</p>
+<p>If it has been resolved, move it back to <code>S-waiting-on-author</code> or
+<code>S-waiting-on-review</code> as appropriate. Add a comment notifying the author or
+reviewer that the PR is now unblocked.</p>
+<p>If it has not been resolved, remove and re-add the <code>S-waiting-on-bikeshed</code> tag.
+This resets the update time so the PR won't be reviewed for another week.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-blockedsort3aupdated-ascs-blocked-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-blockedsort3aupdated-ascs-blocked-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-blocked+sort%3Aupdated-asc">S-blocked PRs</a></a></h4>
+<p>Blocked PRs can remain blocked for a long time. To avoid needlessly re-triaging
+them, they should be closed if the blocking issue is unlikely to be resolved
+soon. If you close a blocked PR, apply the S-blocked-closed label and invite the
+author to re-open the PR once the issue has been resolved. If you feel
+uncomfortable just closing the PR, feel free to link to this document. As a rule
+of thumb, consider these guidelines:</p>
+<ul>
+<li>PRs blocked on discussion (such as RFCs or WG decisions) should be closed
+immediately, since those discussions generally take a long time.</li>
+<li>PRs blocked on other PRs can be left open, unless the blocking PR doesn't look
+like it's going to be merged soon.</li>
+<li>PRs which have already been blocked for two weeks should generally be closed,
+unless there is a clear indication that they will be unblocked soon.</li>
+</ul>
+<p>Blocked PRs which have not been closed should be triaged as follows:</p>
+<p>PRs inactive for greater than 7 days need to be processed. These can be found by
+looking at the &quot;updated X days ago&quot; on GitHub's PR list.</p>
+<p>Find the blocking issue from the triage comment and see if it has been resolved.</p>
+<p>If it has been resolved, move it back to <code>S-waiting-on-author</code> or
+<code>S-waiting-on-review</code> as appropriate. Add a comment notifying the author or
+reviewer that the PR is now unblocked.</p>
+<p>If it has not been resolved, remove and re-add the <code>S-blocked</code> tag. This resets
+the update time so the PR won't be reviewed for another week.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aprlabel3as-blocked-closedsort3aupdated-ascs-blocked-closed-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aprlabel3as-blocked-closedsort3aupdated-ascs-blocked-closed-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Apr+label%3AS-blocked-closed+sort%3Aupdated-asc">S-blocked-closed PRs</a></a></h4>
+<p>These never need to be looked at, although if you want you can go through the
+PRs and see if any have been unblocked. This label is for PRs which are blocked
+and have been closed because it is unlikely that the blocking issue will be
+resolved soon.</p>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aprlabel3as-inactive-closedsort3aupdated-ascs-inactive-closed-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aprlabel3as-inactive-closedsort3aupdated-ascs-inactive-closed-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Apr+label%3AS-inactive-closed+sort%3Aupdated-asc">S-inactive-closed PRs</a></a></h4>
+<p>These never need to be looked at. PRs which have been closed due inactivity.
+This is a terminal state for the time being, primarily oriented towards easing
+future work.</p>
+<h2><a class="header" href="#issue-triage" id="issue-triage">Issue triage</a></h2>
+<p>Issue triage is mostly much simpler. After finishing PR triage, go to the <a href="https://github.com/rust-lang/rust/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20is%3Aopen%20sort%3Acreated-asc%20-label%3AC-feature-request%20-label%3AC-enhancement%20-label%3AC-cleanup%20-label%3AC-bug%20-label%3AC-tracking-issue%20-label%3AC-future-compatibility%20-label%3AC-question%20-label%3AC-feature-accepted">list
+of untagged issues</a> and add tags as you see fit. The following categories
+should, ideally, be assigned to each issue:</p>
+<ul>
+<li>At least one <code>A-</code> tag. This represents the area of the issue, so an issue
+relating to benchmarks or testing would get A-libtest. If you can't find an
+appropriate tag for the issue, it's possible that creating one is the right
+thing to do. Try to pick just one tag to give, unless you're giving the
+A-diagnostics tag, in which case one more tag is a good idea.</li>
+<li>One, and only one, <code>C-</code> tag. This represents that category of the issue.
+<ul>
+<li><code>C-bug</code>: Bugs. These are things like ICEs or other failures of the compiler
+to do what it's supposed to in a way that breaks correct user code. It's not
+always easy to tell if code is correct, and the compiler broken, though, but
+tend towards assuming it's the compiler's fault: at least, we should give a
+better diagnostic. Note that as of now, I-slow, and I-compile{time,mem} are
+not considered bugs, rather, they are enhancements, since they do not break
+user code.</li>
+<li><code>C-cleanup</code>: Refactoring and cleanup work within the compiler.</li>
+<li><code>C-enhancement</code>: Diagnostic improvements, primarily, or other nice to haves,
+but not critical issues. Somewhat implies that this is a minor addition.</li>
+<li><code>C-feature-request</code>: An addition of an impl is the primary thing here.
+Sometimes minor lang features also qualify, though in general it's likely
+those should be closed in favor of RFCs. It's recommended that triagers
+should close issues in favor of the author opening a thread on internals or
+rust-lang/rfcs for language changes that are more significant than adding an
+impl.</li>
+<li><code>C-feature-accepted</code>: Feature-requests that a relevant team would like to
+see an implementation for before final judgement is rendered. It's likely
+that such an implementation would be merged, unless breakage (e.g.,
+inference-related) occurs.</li>
+<li><code>C-future-compatibility</code>: Used for tracking issues for future compatibility
+lints.</li>
+<li><code>C-tracking-issue</code>: This is used for both feature tracking issues (feature
+gates) and issues which track some question or concern of a team. These are
+maintained on GitHub over internals because GH is a more stable location and
+easier to refer to in the long run.</li>
+</ul>
+</li>
+<li>At least one <code>T-</code> tag. Assign the appropriate team to the issue; sometimes
+this is multiple teams, but usually falls into either dev-tools, compiler, or
+libs. Sometimes the lang team needs to make a decision.</li>
+<li>If necessary, add <code>I-</code> tags as you see fit. Particularly, <code>I-ICE</code> is the
+dominant tag to be added.</li>
+<li>If applicable, add platform tags (<code>O-</code>). It's fine to add more than one.</li>
+</ul>
+<p>If an issue has been tagged with an <code>E-</code> category tag, such as <code>E-help-wanted</code>
+and has been taken up by someone, but there has been no activity for 7 days, ask
+if they require assistance, and inform them that after 14 days this issue will
+be made available to anyone. After 14 days re-add the help tag and deassign them
+if necessary.</p>
+<h2><a class="header" href="#state-of-rust-triage" id="state-of-rust-triage">State Of Rust Triage</a></h2>
+<ol>
+<li>Visit the <a href="https://github.com/rust-lang/rust/projects/8">State Of Rust</a> project page. Each card has three pieces of
+information.
+<ul>
+<li>“Feature” — The name of the feature with a link to the tracking issue.</li>
+<li>“What’s next?” — What we are waiting on to implement and stabilise the RFC.</li>
+<li>“Last Update” — The last time this card has been triaged.</li>
+</ul>
+</li>
+<li>For each card that you choose to triage:</li>
+<li>Visit the respective tracking issue, and any related issues that the tracking
+issue is recently mentioned in.</li>
+<li>If the “What’s next?” on the card does not match what you think the current
+state is, update it with the new information.</li>
+<li>If the implementation of an RFC has changed since the last update, move it to
+the relevant column.
+<ul>
+<li>If there are PRs merged that implement the RFC the card would move to
+“Implemented”.</li>
+<li>If there are only open PRs or the PRs don’t implement the full RFC the card
+would be moved to “Implementation in progress”.</li>
+<li>If there has been a decision to deprecate the RFC, move that to the
+“Deprecated” column.</li>
+</ul>
+</li>
+<li>If there have been no meaningful changes to the RFC within 21 days, ping
+someone for an update on the status of the feature.
+<ul>
+<li>If there have been PRs implementing the RFC, ping the author(s).</li>
+<li>If author has not responded within a week, or there are no relevant PRs,
+ping the relevant team.</li>
+<li>If there is no clear choice for the team that should be doing the
+implementation, please add this to release team meeting notes (which can be
+found in the <a href="https://discord.gg/rust-lang">#release Discord channel</a>).</li>
+</ul>
+</li>
+<li>Update the date on the “Last update” and move that to the bottom of the
+column.</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../release/process.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../archive/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../release/process.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../archive/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

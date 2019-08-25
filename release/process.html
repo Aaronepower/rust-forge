@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Release Process - Rust Forge</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Supplemental documentation for contributing to The Rust Programming Language">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../index.html">Overview</a></li><li><a href="../compiler/index.html">Compiler</a></li><li><ol class="section"><li><a href="../compiler/bug-fix-procedure.html">Bug Fix Procedure</a></li><li><a href="../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li><a href="../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li><a href="../compiler/profile-queries.html">Profiling Queries</a></li></ol></li><li><a href="../infra/index.html">Infrastructure</a></li><li><ol class="section"><li><a href="../infra/other-installation-methods.html">Other Installation Methods</a></li><li><a href="../infra/channel-layout.html">Release Channel Layout</a></li><li><a href="../infra/service-infrastructure.html">Service Infrastructure</a></li><li><a href="../infra/team-maintenance.html">Team Maintenance</a></li><li><a href="../infra/toolstate.html">The Toolstate System</a></li></ol></li><li><a href="../lang/index.html">Language</a></li><li><ol class="section"><li><a href="../lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li></ol></li><li><a href="../release/index.html">Release</a></li><li><ol class="section"><li><a href="../release/beta-backporting.html">Beta Backporting</a></li><li><a href="../release/platform-support.html">Platform Support</a></li><li><a href="../release/release-notes.html">Preparing Release Notes</a></li><li><a href="../release/process.html" class="active">Release Process</a></li><li><a href="../release/triage-procedure.html">Triage Procedure</a></li></ol></li><li><a href="../archive/index.html">Archive</a></li><li><ol class="section"><li><a href="../archive/fott.html">Friends of the Tree</a></li><li><a href="../archive/release-history.html">Release History</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Forge</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                            <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
+                                <i id="git-repository-button" class="fa fa-github"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#the-rust-release-process" id="the-rust-release-process">The Rust Release Process</a></h1>
+<p>Here's how Rust is currently released:</p>
+<h2><a class="header" href="#promote-beta-to-stable-t-3-days-monday" id="promote-beta-to-stable-t-3-days-monday">Promote beta to stable (T-3 days, Monday)</a></h2>
+<p>Promote beta to stable. Temporarily turn off GitHub branch protection for the
+<code>stable</code> branch in rust-lang/rust repo. In your local Rust repo:</p>
+<pre><code class="language-sh">$ git fetch rust-lang
+$ git push rust-lang rust-lang/beta:stable -f
+</code></pre>
+<p>Re-enable branch protection for the <code>stable</code> branch. Send a PR to rust-lang/rust
+on the stable branch making the following changes:</p>
+<ul>
+<li>Update <code>src/ci/run.sh</code> to pass <code>channel=stable</code>, not <code>channel=beta</code>.</li>
+</ul>
+<p>Once the PR is sent, r+ it and give it a high <code>p=1000</code>.</p>
+<p>The stable build will <strong>not</strong> deploy automatically to prod. The
+rust-central-station repository is configured to upload to <strong>dev</strong> every hour if
+it detects a change. You should be able to browse changes in dev.</p>
+<p>As soon as this build is done post a message to irlo asking for testing. The
+index is
+https://dev-static-rust-lang-org.s3.amazonaws.com/dist/2015-09-17/index.html and
+our URL is then https://dev-static.rust-lang.org/dist/2015-09-17/index.html.</p>
+<p>Test rustup with</p>
+<pre><code class="language-sh">RUSTUP_DIST_SERVER=https://dev-static.rust-lang.org rustup update stable
+</code></pre>
+<p>If something goes wrong, and we rebuild stable artifacts, you'll need to
+invalidate the dev-static bucket for RCS to re-release it.</p>
+<ol>
+<li>Download https://dev-static.rust-lang/dist/channel-rust-1.35.0.toml The
+version number must be less than the current release, but otherwise doesn't
+matter.</li>
+<li>Rename the file locally to channel-rust-stable.toml</li>
+<li>Upload the file to the dev-static bucket into the dist folder, replacing
+channel-rust-stable.toml.</li>
+<li>Go to CloudFront in AWS, to the dev-static bucket, and issue an invalidation
+for &quot;/dist/channel-rust-stable.toml&quot;. This is necessary until
+https://github.com/rust-lang/rust-central-station/issues/49 is fixed.</li>
+<li>(optional) login to central station, and run the following. This starts the
+dev-static promotion immediately, vs. waiting till the next hour.</li>
+</ol>
+<pre><code class="language-bash">docker exec -d -it rcs bash -c 'promote-release /tmp/stable stable /data/secrets-dev.toml 2&gt;&amp;1 | logger --tag release-stable'
+</code></pre>
+<h2><a class="header" href="#promote-master-to-beta-t-2-days-tuesday" id="promote-master-to-beta-t-2-days-tuesday">Promote master to beta (T-2 days, Tuesday)</a></h2>
+<p>Create a new branch on <code>rust-lang/cargo</code> for the new beta. Here, <code>rust-lang</code> is
+the remote for https://github.com/rust-lang/rust.git. Replace <code>YY</code> with the
+minor version of master. First determine the branch point for cargo in
+<code>rust-lang/rust</code>, and then create a new branch:</p>
+<pre><code class="language-sh">$ cd rust
+$ git fetch rust-lang
+$ CARGO_SHA=`git rev-parse rust-lang/master:src/tools/cargo`
+$ cd src/tools/cargo
+$ git branch rust-1.YY.0 $CARGO_SHA
+$ git push origin rust-1.YY.0
+</code></pre>
+<p>You'll need to temporarily disable branch protection on GitHub to push the new
+branch.</p>
+<p>In theory one day we'll do the same for rust-lang/rls, but for now we haven't
+done this yet.</p>
+<p>Temporarily disable banch protection on GitHub for the <code>beta</code> branch of the Rust
+repo. Promote rust-lang/rust's master branch to beta as with yesterday:</p>
+<pre><code class="language-sh">$ git fetch rust-lang
+$ git push rust-lang rust-lang/master:beta -f
+</code></pre>
+<p>Re-enable branch protection on GitHub. Send a PR to the freshly created beta
+branch of rust-lang/rust which:</p>
+<ul>
+<li>Update src/stage0.txt
+<ul>
+<li>Change <code>date</code> to &quot;YYYY-MM-DD&quot; where the date is the archive date the stable
+build was uploaded</li>
+<li>Change <code>rustc</code> to &quot;X.Y.Z&quot; where that's the version of rustc you just build</li>
+<li>Change <code>cargo</code> to &quot;A.B.C&quot; where it's Cargo's version. That's typically
+&quot;0.(Y+1).0&quot; wrt the rustc version.</li>
+<li>Uncomment <code>dev: 1</code></li>
+</ul>
+</li>
+<li>Update src/ci/run.sh to pass &quot;--release-channel=beta&quot;.</li>
+</ul>
+<p>Note that you probably don't want to update the RLS if it's working, but if it's
+not working beta won't land and it'll need to get updated. After this PR merges
+(through @bors) the beta should be automatically released.</p>
+<h1><a class="header" href="#master-bootstrap-update-t-1-day-wednesday" id="master-bootstrap-update-t-1-day-wednesday">Master bootstrap update (T-1 day, Wednesday)</a></h1>
+<p>Write a new blog post, update rust-www, and update rust-forge. Submit PRs for
+tomorrow.</p>
+<p>Send a PR to the master branch to:</p>
+<ul>
+<li>modify src/stage0.txt to bootstrap from yesterday's beta</li>
+<li>modify src/bootstrap/channel.rs with the new version number</li>
+</ul>
+<h2><a class="header" href="#release-day-thursday" id="release-day-thursday">Release day (Thursday)</a></h2>
+<p>Decide on a time to do the release, T.</p>
+<ul>
+<li>
+<p><strong>T-30m</strong> - This is on rust-central-station:</p>
+<pre><code>docker exec -d -it rcs bash -c 'promote-release /tmp/stable stable /data/secrets.toml 2&gt;&amp;1 | logger --tag release-stable-realz'
+</code></pre>
+<p>That'll, in the background, schedule the <code>promote-release</code> binary to run on
+the production secrets (not the dev secrets). That'll sign everything, upload
+it, update the html index pages, and invalidate the CDN. Note that this takes
+about 30 minutes right now. Logs are in <code>/opt/rcs/logs</code>.</p>
+</li>
+<li>
+<p><strong>T-10m</strong> - Locally, tag the new release and upload it. Use &quot;x.y.z release&quot; as
+the commit message.</p>
+<pre><code class="language-sh">$ git tag -u FA1BE5FE 1.3.0 $COMMIT_SHA
+$ git push rust-lang 1.3.0
+</code></pre>
+<p>After this <a href="https://travis-ci.com/rust-lang/thanks">Update thanks.rust-lang.org</a> by triggering a build
+on Travis.</p>
+</li>
+<li>
+<p><strong>T-5m</strong> - Merge blog post.</p>
+</li>
+<li>
+<p><strong>T</strong> - Tweet and post everything!</p>
+<ul>
+<li>Twitter <a href="https://twitter.com/rustlang">@rustlang</a></li>
+<li>Reddit <a href="https://www.reddit.com/r/rust/">/r/rust</a></li>
+<li><a href="https://news.ycombinator.com/">Hacker News</a></li>
+<li><a href="https://users.rust-lang.org/">Users forum</a></li>
+</ul>
+</li>
+<li>
+<p><strong>T+5m</strong> - Tag Cargo the same way as rust-lang/rust and then run
+<code>cargo publish</code> for the tag you just created. You'll first need to comment
+out <code>cargo-test-macro</code> from Cargo.toml, then publish <code>crates-io</code> (in
+<code>crates/crates-io</code>) and finally publish <code>cargo</code> itself.</p>
+<p>Also tag RLS the same way and then run <code>cargo publish</code> for the tag you just
+created.</p>
+</li>
+<li>
+<p><strong>T+1hr</strong> Send a PR to the beta branch to comment out <code>dev: 1</code> again and
+update the date to download from (modifying <code>src/stage0.txt</code>).</p>
+</li>
+</ul>
+<p>Bask in your success.</p>
+<h1><a class="header" href="#update-dependencies-t1-day-friday" id="update-dependencies-t1-day-friday">Update dependencies (T+1 day, Friday)</a></h1>
+<p>In the repo:</p>
+<pre><code class="language-bash">$ cd src
+$ cargo update
+</code></pre>
+<p>The very ambitious can use https://crates.io/crates/cargo-outdated and update
+through breaking changes.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../release/release-notes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../release/triage-procedure.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../release/release-notes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../release/triage-procedure.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

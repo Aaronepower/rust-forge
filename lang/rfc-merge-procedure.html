@@ -1,0 +1,271 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>RFC Merge Procedure - Rust Forge</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Supplemental documentation for contributing to The Rust Programming Language">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../index.html">Overview</a></li><li><a href="../compiler/index.html">Compiler</a></li><li><ol class="section"><li><a href="../compiler/bug-fix-procedure.html">Bug Fix Procedure</a></li><li><a href="../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li><a href="../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li><a href="../compiler/profile-queries.html">Profiling Queries</a></li></ol></li><li><a href="../infra/index.html">Infrastructure</a></li><li><ol class="section"><li><a href="../infra/other-installation-methods.html">Other Installation Methods</a></li><li><a href="../infra/channel-layout.html">Release Channel Layout</a></li><li><a href="../infra/service-infrastructure.html">Service Infrastructure</a></li><li><a href="../infra/team-maintenance.html">Team Maintenance</a></li><li><a href="../infra/toolstate.html">The Toolstate System</a></li></ol></li><li><a href="../lang/index.html">Language</a></li><li><ol class="section"><li><a href="../lang/rfc-merge-procedure.html" class="active">RFC Merge Procedure</a></li></ol></li><li><a href="../release/index.html">Release</a></li><li><ol class="section"><li><a href="../release/beta-backporting.html">Beta Backporting</a></li><li><a href="../release/platform-support.html">Platform Support</a></li><li><a href="../release/release-notes.html">Preparing Release Notes</a></li><li><a href="../release/process.html">Release Process</a></li><li><a href="../release/triage-procedure.html">Triage Procedure</a></li></ol></li><li><a href="../archive/index.html">Archive</a></li><li><ol class="section"><li><a href="../archive/fott.html">Friends of the Tree</a></li><li><a href="../archive/release-history.html">Release History</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Forge</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                            <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
+                                <i id="git-repository-button" class="fa fa-github"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#rfc-merge-procedure" id="rfc-merge-procedure">RFC Merge Procedure</a></h1>
+<p>Once an RFC has been accepted (i.e., the final comment period is complete, and
+no major issues were raised), it must be merged. Right now this is a manual
+process, though just about anyone can do it (if you're not a subteam member,
+though, you'll have to open a PR rather than merge the RFC manually). Here is
+the complete set of steps to merge an RFC -- in some cases, not all the steps
+will be applicable.</p>
+<h3><a class="header" href="#step-1-open-tracking-issue" id="step-1-open-tracking-issue">Step 1: Open tracking issue</a></h3>
+<p>Open a tracking issue over on rust-lang/rust. Here is a template for the issue
+text. You'll have to adjust the various places labeled XXX with some suitable
+content (e.g., the name of the RFC, or the most appropriate team).</p>
+<pre><code class="language-markdown">This is a tracking issue for the RFC &quot;XXX&quot; (rust-lang/rfcs#NNN).
+
+**Steps:**
+
+- [ ] Implement the RFC (cc @rust-lang/XXX -- can anyone write up mentoring
+      instructions?)
+- [ ] Adjust documentation ([see instructions on rustc-guide][doc-guide])
+- [ ] Stabilization PR ([see instructions on rustc-guide][stabilization-guide])
+
+[stabilization-guide]: https://rust-lang.github.io/rustc-guide/stabilization_guide.html#stabilization-pr
+[doc-guide]: https://rust-lang.github.io/rustc-guide/stabilization_guide.html#documentation-prs
+
+**Unresolved questions:**
+
+XXX --- list all the &quot;unresolved questions&quot; found in the RFC to ensure they are
+not forgotten
+</code></pre>
+<p>Add the following labels to the issue:</p>
+<ul>
+<li><code>B-rfc-approved</code></li>
+<li>the approriate <code>T-XXX</code> label</li>
+</ul>
+<p>(If you don't have permissions to do so, leave a note cc'ing the appropriate
+team and asking them to do so.)</p>
+<h3><a class="header" href="#step-2-merge-the-rfc-pr-itself" id="step-2-merge-the-rfc-pr-itself">Step 2: Merge the RFC PR itself</a></h3>
+<p>In your local git checkout:</p>
+<ul>
+<li>Merge the RFC PR into master in your fork</li>
+<li>Add a commit that moves the file name from 0000- to its RFC number</li>
+<li>Edit the new file to include links to the RFC PR and the tracking issue you
+just created in the header</li>
+<li>Open a PR or push directly to the master branch on rust-lang/rfcs, as
+appropriate</li>
+</ul>
+<h3><a class="header" href="#step-3-leave-a-comment" id="step-3-leave-a-comment">Step 3: Leave a comment</a></h3>
+<p>Leave a final comment on the PR directing everyone to the tracking issue.
+Something like this, but feel free to add your own personal flavor (and change
+the team):</p>
+<pre><code class="language-markdown">**Huzzah!** The @rust-lang/lang team has decided **to accept** this RFC.
+
+To track further discussion, subscribe to the tracking issue here:
+rust-lang/rust#41517
+</code></pre>
+<h3><a class="header" href="#step-4-update-the-rendered-link" id="step-4-update-the-rendered-link">Step 4: Update the rendered link</a></h3>
+<p>Update the rendered link in the first post of the PR to the permanent home under
+<code>https://github.com/rust-lang/rfcs/blob/master/text/</code>.</p>
+<p>(This way future visitors can open it easily after the PR branch is deleted.)</p>
+<h3><a class="header" href="#thats-it-youre-done" id="thats-it-youre-done">That's it, you're done!</a></h3>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../lang/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../release/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../lang/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../release/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
