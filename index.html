@@ -154,7 +154,24 @@
 documentation useful for members of <a href="https://rust-lang.org">The Rust Programming Language</a>. If
 you find any mistakes, typos, or want to add to the Rust Forge. Feel free to
 file an issue or PR on the <a href="https://github.com/rust-lang/rust-forge">Rust Forge GitHub</a>.</p>
-<h1><a class="header" href="#external-links" id="external-links">External Links</a></h1>
+<!-- All `<span id="..."></span>` elements are filled at run time when a reader
+visits the website. Please refer to `js/index.js` for how these values
+are generated.
+-->
+<h3><a class="header" href="#current-release-versions" id="current-release-versions">Current Release Versions</a></h3>
+<table><thead><tr><th>Channel</th><th>Version</th><th>Release Date</th></tr></thead><tbody>
+<tr><td>Stable</td><td><span id="stable-version"></span></td><td><span id="stable-release-date"></span></td></tr>
+<tr><td>Beta</td><td><span id="beta-version"></span></td><td><span id="beta-release-date"></span></td></tr>
+<tr><td>Nightly</td><td><span id="nightly-version"></span></td><td><span id="nightly-release-date"></span></td></tr>
+</tbody></table>
+<h3><a class="header" href="#no-tools-breakage-week" id="no-tools-breakage-week">No Tools Breakage Week</a></h3>
+<p>To ensure the beta release includes all the tools, no <a href="./infra/toolstate.html">tool breakages</a> are
+allowed in the week before the beta cutoff (except for nightly-only tools).</p>
+<table><thead><tr><th>Channel</th><th>Version</th><th>No Breakage Week</th></tr></thead><tbody>
+<tr><td>Beta</td><td><span id="beta-cycle"></span></td><td><span id="beta-timespan"></span></td></tr>
+<tr><td>Nightly</td><td><span id="nightly-cycle"></span></td><td><span id="nightly-timespan"></span></td></tr>
+</tbody></table>
+<h3><a class="header" href="#external-links" id="external-links">External Links</a></h3>
 <ul>
 <li><a href="https://rust-lang.github.io/rustc-guide/appendix/bibliography.html">Bibliography</a> of research papers and other projects that influenced Rust.</li>
 <li><a href="https://pontoon.rust-lang.org/">Rust Pontoon</a> is a translation management system used to localize the Rust
@@ -207,6 +224,10 @@ website.</li>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="js/moment.min.js"></script>
+        
+        <script type="text/javascript" src="js/index.js"></script>
         
 
         
