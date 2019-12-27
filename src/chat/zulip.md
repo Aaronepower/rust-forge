@@ -9,7 +9,7 @@ two areas: a list of streams on the left, and the main chat in the middle.
 ## Streams
 
 These are similar to "channels" on other platforms (i.e., there should not be
-too many).  On the other hand, you can choose which streams you subscribe to, so
+too many). On the other hand, you can choose which streams you subscribe to, so
 there can be more than channels on other platforms.
 
 Streams are appropriate for any Rust official group. For example, working
@@ -44,11 +44,22 @@ nature to the subject line of an email, but should generally be no longer than
 
 You should eagerly fork new discussion topics into fresh topics. Note that this
 can be done with the tail of another topic (if accidentally you diverge into
-another area of discussion). To fork from an existing topic, find the first
-message that should go into the new topic. All subsequent messages will be sent
-to the new topic. Choose the down arrow in the upper right of the message box,
-and click "View source / Edit topic". Then, edit the topic message inline and
-choose "Change later messages to this topic".
+another area of discussion).
+
+To fork from an existing topic, find the first message that should go into the
+new topic. All subsequent messages will be sent to the new topic.
+
+Choose the down arrow in the upper right of the message box, and click
+"View source / Edit topic".
+
+![Screenshot highlighting the "View Source / Edit topic" option from the down
+arrow on Zulip.](./images/zulip-view-source.png)
+
+Then, edit the topic message inline and choose "Change later messages to
+this topic".
+
+![Screenshot highlighting the "Change later messages to this topic" option from
+the topic change action menu.](./images/zulip-change-later-messages.png)
 
 ## Messages
 
