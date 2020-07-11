@@ -1,0 +1,653 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Governance - Rust Forge</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Supplemental documentation for contributing to The Rust Programming Language">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Overview</a></li><li class="chapter-item expanded "><a href="../platforms/index.html">Platforms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../platforms/discord.html">Discord</a></li><li class="chapter-item expanded "><a href="../platforms/email.html">Email</a></li><li class="chapter-item expanded "><a href="../platforms/github.html">GitHub</a></li><li class="chapter-item expanded "><a href="../platforms/zulip.html">Zulip</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../platforms/zulip/moderation.html">Moderation</a></li><li class="chapter-item expanded "><a href="../platforms/zulip/triagebot.html">Triagebot</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../core/index.html">Core</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core/blogs.html">Rust Blog Guidelines</a></li><li class="chapter-item expanded "><a href="../core/legal.html">Legal counsel</a></li></ol></li><li class="chapter-item expanded "><a href="../community/index.html">Community</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../community/survey-faq.html">State of Rust Survey FAQ</a></li></ol></li><li class="chapter-item expanded "><a href="../compiler/index.html">Compiler</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li class="chapter-item expanded "><a href="../compiler/reviews.html">Review policies</a></li><li class="chapter-item expanded "><a href="../compiler/new_option.html">So you want to add a new option to rustc?</a></li><li class="chapter-item expanded "><a href="../compiler/mcp.html">Major Change Proposals</a></li><li class="chapter-item expanded "><a href="../compiler/membership.html">Membership</a></li><li class="chapter-item expanded "><a href="../compiler/notification-groups.html">Notification groups</a></li><li class="chapter-item expanded "><a href="../compiler/triage-meeting.html">Triage Meeting</a></li><li class="chapter-item expanded "><a href="../compiler/steering-meeting.html">Steering Meeting</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiler/steering-meeting/submit.html">Submitting a proposal</a></li><li class="chapter-item expanded "><a href="../compiler/steering-meeting/how-to-run-planning.html">How to run the planning meeting</a></li><li class="chapter-item expanded "><a href="../compiler/steering-meeting/how-to-run-design.html">How to run a design meeting</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../crates-io/index.html">crates.io</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../crates-io/crate-removal.html">Crate removal</a></li></ol></li><li class="chapter-item expanded "><a href="../docs-rs/index.html">docs.rs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../docs-rs/add-dependencies.html">Adding dependencies to the build environment</a></li><li class="chapter-item expanded "><a href="../docs-rs/no-docker-compose.html">Developing without docker-compose</a></li><li class="chapter-item expanded "><a href="../docs-rs/self-hosting.html">Self-hosting a docs.rs instance</a></li><li class="chapter-item expanded "><a href="../docs-rs/maintenance.html">Maintenance procedures</a></li><li class="chapter-item expanded "><a href="../docs-rs/migrate-s3.html">Migrating from a local database to S3</a></li></ol></li><li class="chapter-item expanded "><a href="../governance/index.html" class="active">Governance</a></li><li class="chapter-item expanded "><a href="../infra/index.html">Infrastructure</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/other-installation-methods.html">Other Installation Methods</a></li><li class="chapter-item expanded "><a href="../infra/channel-layout.html">Release Channel Layout</a></li><li class="chapter-item expanded "><a href="../infra/service-infrastructure.html">Service Infrastructure</a></li><li class="chapter-item expanded "><a href="../infra/team-maintenance.html">Team Maintenance</a></li><li class="chapter-item expanded "><a href="../infra/toolstate.html">The Toolstate System</a></li><li class="chapter-item expanded "><a href="../infra/policies/index.html">Policies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/policies/broken-nightlies.html">Broken nightlies</a></li></ol></li><li class="chapter-item expanded "><a href="../infra/guidelines/index.html">Guidelines</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/guidelines/static-websites.html">Static websites</a></li></ol></li><li class="chapter-item expanded "><a href="../infra/docs/index.html">Documentation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/docs/aws-access.html">AWS access for team members</a></li><li class="chapter-item expanded "><a href="../infra/docs/aws-access-management.html">AWS access management</a></li><li class="chapter-item expanded "><a href="../infra/docs/bastion.html">Bastion server</a></li><li class="chapter-item expanded "><a href="../infra/docs/crater-agents.html">Crater agents</a></li><li class="chapter-item expanded "><a href="../infra/docs/gha-self-hosted.html">Custom GitHub Actions runners</a></li><li class="chapter-item expanded "><a href="../infra/docs/discord-mods-bot.html">Discord moderation bot</a></li><li class="chapter-item expanded "><a href="../infra/docs/dns.html">Domain names and DNS</a></li><li class="chapter-item expanded "><a href="../infra/docs/docs-rs.html">docs.rs</a></li><li class="chapter-item expanded "><a href="../infra/docs/ecs-services.html">ECS services management</a></li><li class="chapter-item expanded "><a href="../infra/docs/monitoring.html">Monitoring</a></li><li class="chapter-item expanded "><a href="../infra/docs/rust-bots.html">rust-bots server</a></li><li class="chapter-item expanded "><a href="../infra/docs/rustc-ci.html">rust-lang/rust CI</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../lang/index.html">Language</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li><li class="chapter-item expanded "><a href="../lang/triage-meeting-procedure.html">Triage Meeting Procedure</a></li></ol></li><li class="chapter-item expanded "><a href="../libs/index.html">Libs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../libs/maintaining-std.html">Maintaining the standard library</a></li></ol></li><li class="chapter-item expanded "><a href="../release/index.html">Release</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../release/beta-backporting.html">Beta Backporting</a></li><li class="chapter-item expanded "><a href="../release/platform-support.html">Platform Support</a></li><li class="chapter-item expanded "><a href="../release/release-notes.html">Preparing Release Notes</a></li><li class="chapter-item expanded "><a href="../release/process.html">Release Process</a></li><li class="chapter-item expanded "><a href="../release/rollups.html">Rollup Procedure</a></li><li class="chapter-item expanded "><a href="../release/triage-procedure.html">Triage Procedure</a></li><li class="chapter-item expanded "><a href="../release/crater.html">Triaging Crater Runs</a></li></ol></li><li class="chapter-item expanded "><a href="../archive/index.html">Archive</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../archive/fott.html">Friends of the Tree</a></li><li class="chapter-item expanded "><a href="../archive/release-history.html">Release History</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust Forge</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#governance" id="governance">Governance</a></h1>
+<p style="background: #f8d7da; color: #721c24; padding: 5px">
+<strong>IMPORTANT</strong> This document is adapted from
+<a href="https://rust-lang.github.io/rfcs/1068-rust-governance.html">RFC 1068</a>
+and is currently being actively worked on, however there may be large parts of
+Rust's governance that are missing, incomplete, or out of date.
+</p>
+<h2><a class="header" href="#core-team" id="core-team">Core team</a></h2>
+<p><strong>The core team serves as leadership for the Rust project as a whole</strong>. In
+particular, it:</p>
+<ul>
+<li>
+<p><strong>Sets the overall direction and vision for the project.</strong> That means setting
+the core values that are used when making decisions about technical
+tradeoffs. It means steering the project toward specific use cases where Rust
+can have a major impact. It means leading the discussion, and writing RFCs
+for, <em>major</em> initiatives in the project.</p>
+</li>
+<li>
+<p><strong>Sets the priorities and release schedule.</strong> Design bandwidth is limited, and
+it's dangerous to try to grow the language too quickly; the core team makes
+some difficult decisions about which areas to prioritize for new design, based
+on the core values and target use cases.</p>
+</li>
+<li>
+<p><strong>Focuses on broad, cross-cutting concerns.</strong> The core team is specifically
+designed to take a <em>global</em> view of the project, to make sure the pieces are
+fitting together in a coherent way.</p>
+</li>
+<li>
+<p><strong>Spins up or shuts down subteams.</strong> Over time, we may want to expand the set
+of subteams, and it may make sense to have temporary &quot;strike teams&quot; that focus
+on a particular, limited task.</p>
+</li>
+<li>
+<p><strong>Decides whether/when to ungate a feature.</strong> While the subteams make
+decisions on RFCs, the core team is responsible for pulling the trigger that
+moves a feature from nightly to stable. This provides an extra check that
+features have adequately addressed cross-cutting concerns, that the
+implementation quality is high enough, and that language/library commitments
+are reasonable.</p>
+</li>
+</ul>
+<p>The core team should include both the subteam leaders, and, over time, a diverse
+set of other stakeholders that are both actively involved in the Rust community,
+and can speak to the needs of major Rust constituencies, to ensure that the
+project is addressing real-world needs.</p>
+<h2><a class="header" href="#subteams" id="subteams">Subteams</a></h2>
+<p><strong>The primary roles of each subteam are</strong>:</p>
+<ul>
+<li>
+<p>Shepherding RFCs for the subteam area. As always, that means (1) ensuring that
+stakeholders are aware of the RFC, (2) working to tease out various design
+tradeoffs and alternatives, and (3) helping build consensus.</p>
+</li>
+<li>
+<p>Accepting or rejecting RFCs in the subteam area.</p>
+</li>
+<li>
+<p>Setting policy on what changes in the subteam area require RFCs, and reviewing
+direct PRs for changes that do not require an RFC.</p>
+</li>
+<li>
+<p>Delegating <em>reviewer rights</em> for the subteam area. The ability to <code>r+</code> is not
+limited to team members, and in fact earning <code>r+</code> rights is a good stepping
+stone toward team membership. Each team should set reviewing policy, manage
+reviewing rights, and ensure that reviews take place in a timely manner.
+(Thanks to Nick Cameron for this suggestion.)</p>
+</li>
+</ul>
+<p>Subteams make it possible to involve a larger, more diverse group in the
+decision-making process. In particular, <strong>they should involve a mix of</strong>:</p>
+<ul>
+<li>
+<p>Rust project leadership, in the form of at least one core team member (the
+leader of the subteam).</p>
+</li>
+<li>
+<p>Area experts: people who have a lot of interest and expertise in the subteam
+area, but who may be far less engaged with other areas of the project.</p>
+</li>
+<li>
+<p>Stakeholders: people who are strongly affected by decisions in the
+subteam area, but who may not be experts in the design or
+implementation of that area. <em>It is crucial that some people heavily
+using Rust for applications/libraries have a seat at the table, to
+make sure we are actually addressing real-world needs.</em></p>
+</li>
+</ul>
+<p>Members should have demonstrated a good sense for design and dealing with
+tradeoffs, an ability to work within a framework of consensus, and of course
+sufficient knowledge about or experience with the subteam area. Leaders should
+in addition have demonstrated exceptional communication, design, and people
+skills. They must be able to work with a diverse group of people and help lead
+it toward consensus and execution.</p>
+<p>Each subteam is led by a member of the core team. <strong>The leader is responsible for</strong>:</p>
+<ul>
+<li>
+<p>Setting up the subteam:</p>
+<ul>
+<li>
+<p>Deciding on the initial membership of the subteam (in consultation with
+the core team). Once the subteam is up and running.</p>
+</li>
+<li>
+<p>Working with subteam members to determine and publish subteam policies and
+mechanics, including the way that subteam members join or leave the team
+(which should be based on subteam consensus).</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Communicating core team vision downward to the subteam.</p>
+</li>
+<li>
+<p>Alerting the core team to subteam RFCs that need global, cross-cutting
+attention, and to RFCs that have entered the &quot;final comment period&quot; (see below).</p>
+</li>
+<li>
+<p>Ensuring that RFCs and PRs are progressing at a reasonable rate, re-assigning
+shepherds/reviewers as needed.</p>
+</li>
+<li>
+<p>Making final decisions in cases of contentious RFCs that are unable to reach
+consensus otherwise (should be rare).</p>
+</li>
+</ul>
+<p>The way that subteams communicate internally and externally is left to each
+subteam to decide, but:</p>
+<ul>
+<li>
+<p>Technical discussion should take place as much as possible on public forums,
+ideally on RFC/PR threads and tagged discuss posts.</p>
+</li>
+<li>
+<p>Each subteam will have a dedicated
+<a href="https://internals.rust-lang.org/">internals forum</a> tag.</p>
+</li>
+<li>
+<p>Subteams should actively seek out discussion and input from stakeholders who
+are not members of the team.</p>
+</li>
+<li>
+<p>Subteams should have some kind of regular meeting or other way of making
+decisions. The content of this meeting should be summarized with the rationale
+for each decision -- and, as explained below, decisions should generally be
+about weighting a set of already-known tradeoffs, not discussing or
+discovering new rationale.</p>
+</li>
+<li>
+<p>Subteams should regularly publish the status of RFCs, PRs, and other news
+related to their area. Ideally, this would be done in part via a dashboard
+like <a href="http://buildbot.rust-lang.org/homu/queue/rust">the Homu queue</a>.</p>
+</li>
+</ul>
+<h2><a class="header" href="#decision-making" id="decision-making">Decision-making</a></h2>
+<h3><a class="header" href="#consensus" id="consensus">Consensus</a></h3>
+<p>Rust has long used a form of <a href="https://en.wikipedia.org/wiki/Consensus_decision-making">consensus decision-making</a>. In a
+nutshell the premise is that a successful outcome is not where one side of a
+debate has &quot;won&quot;, but rather where concerns from <em>all</em> sides have been addressed
+in some way. <strong>This emphatically does not entail design by committee, nor
+compromised design</strong>. Rather, it's a recognition that</p>
+<blockquote>
+<p>... every design or implementation choice carries a trade-off and numerous
+costs. There is seldom a right answer.</p>
+</blockquote>
+<p>Breakthrough designs sometimes end up changing the playing field by eliminating
+tradeoffs altogether, but more often difficult decisions have to be made. <strong>The
+key is to have a clear vision and set of values and priorities</strong>, which is the
+core team's responsibility to set and communicate, and the subteam's
+responsibility to act upon.</p>
+<p>Whenever possible, we seek to reach consensus through discussion and design
+revision. Concretely, the steps are:</p>
+<ul>
+<li>Initial RFC proposed, with initial analysis of tradeoffs.</li>
+<li>Comments reveal additional drawbacks, problems, or tradeoffs.</li>
+<li>RFC revised to address comments, often by improving the design.</li>
+<li>Repeat above until &quot;major objections&quot; are fully addressed, or it's clear that
+there is a fundamental choice to be made.</li>
+</ul>
+<p>Consensus is reached when most people are left with only &quot;minor&quot; objections,
+i.e., while they might choose the tradeoffs slightly differently they do not
+feel a strong need to <em>actively block</em> the RFC from progressing.</p>
+<p>One important question is: consensus among which people, exactly? Of course, the
+broader the consensus, the better. But at the very least, <strong>consensus within the
+members of the subteam should be the norm for most decisions.</strong> If the core team
+has done its job of communicating the values and priorities, it should be
+possible to fit the debate about the RFC into that framework and reach a fairly
+clear outcome.</p>
+<h3><a class="header" href="#lack-of-consensus" id="lack-of-consensus">Lack of consensus</a></h3>
+<p>In some cases, though, consensus cannot be reached. These cases tend to split
+into two very different camps:</p>
+<ul>
+<li>
+<p>&quot;Trivial&quot; reasons, e.g., there is not widespread agreement about naming, but
+there is consensus about the substance.</p>
+</li>
+<li>
+<p>&quot;Deep&quot; reasons, e.g., the design fundamentally improves one set of concerns at
+the expense of another, and people on both sides feel strongly about it.</p>
+</li>
+</ul>
+<p>In either case, an alternative form of decision-making is needed.</p>
+<ul>
+<li>
+<p>For the &quot;trivial&quot; case, usually either the RFC shepherd or subteam leader will
+make an executive decision.</p>
+</li>
+<li>
+<p>For the &quot;deep&quot; case, the subteam leader is empowered to make a final decision,
+but should consult with the rest of the core team before doing so.</p>
+</li>
+</ul>
+<h3><a class="header" href="#how-and-when-rfc-decisions-are-made-and-the-final-comment-period" id="how-and-when-rfc-decisions-are-made-and-the-final-comment-period">How and when RFC decisions are made, and the &quot;final comment period&quot;</a></h3>
+<p>Each RFC has a shepherd drawn from the relevant subteam. The shepherd is
+responsible for driving the consensus process -- working with both the RFC
+author and the broader community to dig out problems, alternatives, and improved
+design, always working to reach broader consensus.</p>
+<p>At some point, the RFC comments will reach a kind of &quot;steady state&quot;, where no
+new tradeoffs are being discovered, and either objections have been addressed,
+or it's clear that the design has fundamental downsides that need to be weighed.</p>
+<p>At that point, the shepherd will announce that the RFC is in a &quot;final comment
+period&quot; (which lasts for one week). This is a kind of &quot;last call&quot; for strong
+objections to the RFC. <strong>The announcement of the final comment period for an RFC
+should be very visible</strong>; it should be included in the subteam's periodic
+communications.</p>
+<blockquote>
+<p>Note that the final comment period is in part intended to help keep RFCs
+moving. Historically, RFCs sometimes stall out at a point where discussion has
+died down but a decision isn't needed urgently. In this proposed model, the
+RFC author could ask the shepherd to move to the final comment period (and
+hence toward a decision).</p>
+</blockquote>
+<p>After the final comment period, the subteam can make a decision on the RFC. The
+role of the subteam at that point is <em>not</em> to reveal any new technical issues or
+arguments; if these come up during discussion, they should be added as comments
+to the RFC, and it should undergo another final comment period.</p>
+<p>Instead, the subteam decision is based on <strong>weighing the already-revealed
+tradeoffs against the project's priorities and values</strong> (which the core team is
+responsible for setting, globally). In the end, these decisions are about how to
+weight tradeoffs. The decision should be communicated in these terms, pointing
+out the tradeoffs that were raised and explaining how they were weighted, and
+<strong>never introducing new arguments</strong>.</p>
+<h2><a class="header" href="#keeping-things-lightweight" id="keeping-things-lightweight">Keeping things lightweight</a></h2>
+<p>In addition to the &quot;final comment period&quot; proposed above, this RFC proposes some
+further adjustments to the RFC process to keep it lightweight.</p>
+<p>A key observation is that, thanks to the stability system and nightly/stable
+distinction, <strong>it's easy to experiment with features without commitment</strong>.</p>
+<h3><a class="header" href="#clarifying-what-needs-an-rfc" id="clarifying-what-needs-an-rfc">Clarifying what needs an RFC</a></h3>
+<p>Over time, we've been drifting toward requiring an RFC for essentially any
+user-facing change, which sometimes means that very minor changes get stuck
+awaiting an RFC decision. While subteams + final comment period should help keep
+the pipeline flowing a bit better, it would also be good to allow &quot;minor&quot;
+changes to go through without an RFC, provided there is sufficient review in
+some other way. (And in the end, the core team ungates features, which ensures
+at least a final review.)</p>
+<p>This RFC does not attempt to answer the question &quot;What needs an RFC&quot;, because
+that question will vary for each subteam. However, this RFC stipulates that each
+subteam should set an explicit policy about:</p>
+<ol>
+<li>What requires an RFC for the subteam's area, and</li>
+<li>What the non-RFC review process is.</li>
+</ol>
+<p>These guidelines should try to keep the process lightweight for minor changes.</p>
+<h3><a class="header" href="#clarifying-the-finality-of-rfcs" id="clarifying-the-finality-of-rfcs">Clarifying the &quot;finality&quot; of RFCs</a></h3>
+<p>While RFCs are very important, they do not represent the final state of a
+design. Often new issues or improvements arise during implementation, or after
+gaining some experience with a feature. <strong>The nightly/stable distinction exists
+in part to allow for such design iteration.</strong></p>
+<p>Thus RFCs do not need to be &quot;perfect&quot; before acceptance. If consensus is reached
+on major points, the minor details can be left to implementation and revision.</p>
+<p>Later, if an implementation differs from the RFC in <em>substantial</em> ways, the
+subteam should be alerted, and may ask for an explicit amendment RFC. Otherwise,
+the changes should just be explained in the commit/PR.</p>
+<h2><a class="header" href="#the-teams" id="the-teams">The teams</a></h2>
+<p>With all of that out of the way, what subteams should we start with? This RFC
+proposes the following initial set:</p>
+<ul>
+<li>Language design</li>
+<li>Libraries</li>
+<li>Compiler</li>
+<li>Tooling and infrastructure</li>
+<li>Moderation</li>
+</ul>
+<p>In the long run, we will likely also want teams for documentation and for
+community events, but these can be spun up once there is a more clear need (and
+available resources).</p>
+<h3><a class="header" href="#language-design-team" id="language-design-team">Language design team</a></h3>
+<p>Focuses on the <em>design</em> of language-level features; not all team members need to
+have extensive implementation experience.</p>
+<p>Some example RFCs that fall into this area:</p>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/195">Associated types and multidispatch</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/982">DST coercions</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/243">Trait-based exception handling</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1023">Rebalancing coherence</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/560">Integer overflow</a> (this has high
+overlap with the library subteam)</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/769">Sound generic drop</a></li>
+</ul>
+<h3><a class="header" href="#library-team" id="library-team">Library team</a></h3>
+<p>Oversees both <code>std</code> and, ultimately, other crates in the <code>rust-lang</code> github
+organization. The focus up to this point has been the standard library, but we
+will want &quot;official&quot; libraries that aren't quite <code>std</code> territory but are still
+vital for Rust. (The precise plan here, as well as the long-term plan for <code>std</code>,
+is one of the first important areas of debate for the subteam.) Also includes
+API conventions.</p>
+<p>Some example RFCs that fall into this area:</p>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/235">Collections reform</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/517/">IO reform</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/640">Debug improvements</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/823">Simplifying std::hash</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/199">Conventions for ownership variants</a></li>
+</ul>
+<h3><a class="header" href="#compiler-team" id="compiler-team">Compiler team</a></h3>
+<p>Focuses on compiler internals, including implementation of language
+features. This broad category includes work in codegen, factoring of compiler
+data structures, type inference, borrowck, and so on.</p>
+<p>There is a more limited set of example RFCs for this subteam, in part because we
+haven't generally required RFCs for this kind of internals work, but here are two:</p>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/320">Non-zeroing dynamic drops</a> (this
+has high overlap with language design)</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/594">Incremental compilation</a></li>
+</ul>
+<h3><a class="header" href="#tooling-and-infrastructure-team" id="tooling-and-infrastructure-team">Tooling and infrastructure team</a></h3>
+<p>Even more broad is the &quot;tooling&quot; subteam, which at inception is planned to
+encompass every &quot;official&quot; (rust-lang managed) non-<code>rustc</code> tool:</p>
+<ul>
+<li>rustdoc</li>
+<li>rustfmt</li>
+<li>Cargo</li>
+<li>crates.io</li>
+<li>CI infrastructure</li>
+<li>Debugging tools</li>
+<li>Profiling tools</li>
+<li>Editor/IDE integration</li>
+<li>Refactoring tools</li>
+</ul>
+<p>It's not presently clear exactly what tools will end up under this umbrella, nor
+which should be prioritized.</p>
+<h3><a class="header" href="#moderation-team" id="moderation-team">Moderation team</a></h3>
+<p>Finally, the moderation team is responsible for dealing with CoC violations.</p>
+<p>One key difference from the other subteams is that the moderation team does not
+have a leader. Its members are chosen directly by the core team, and should be
+community members who have demonstrated the highest standard of discourse and
+maturity. To limit conflicts of interest, <strong>the moderation subteam should not
+include any core team members</strong>. However, the subteam is free to consult with
+the core team as it deems appropriate.</p>
+<p>The moderation team will have a public email address that can be used to raise
+complaints about CoC violations (forwards to all active moderators).</p>
+<h4><a class="header" href="#initial-plan-for-moderation" id="initial-plan-for-moderation">Initial plan for moderation</a></h4>
+<p>What follows is an initial proposal for the mechanics of moderation. The
+moderation subteam may choose to revise this proposal by drafting an RFC, which
+will be approved by the core team.</p>
+<p>Moderation begins whenever a moderator becomes aware of a CoC problem, either
+through a complaint or by observing it directly. In general, the enforcement
+steps are as follows:</p>
+<blockquote>
+<p><strong>These steps are adapted from text written by Manish Goregaokar, who helped
+articulate them from experience as a Stack Exchange moderator.</strong></p>
+</blockquote>
+<ul>
+<li>
+<p>Except for extreme cases (see below), try first to address the problem with a
+light public comment on thread, aimed to de-escalate the situation. These
+comments should strive for as much empathy as possible. Moderators should
+emphasize that dissenting opinions are valued, and strive to ensure that the
+technical points are heard even as they work to cool things down.</p>
+<p>When a discussion has just gotten a bit heated, the comment can just be a
+reminder to be respectful and that there is rarely a clear &quot;right&quot; answer. In
+cases that are more clearly over the line into personal attacks, it can
+directly call out a problematic comment.</p>
+</li>
+<li>
+<p>If the problem persists on thread, or if a particular person repeatedly comes
+close to or steps over the line of a CoC violation, moderators then email the
+offender privately. The message should include relevant portions of the CoC
+together with the offending comments. Again, the goal is to de-escalate, and
+the email should be written in a dispassionate and empathetic way. However,
+the message should also make clear that continued violations may result in a
+ban.</p>
+</li>
+<li>
+<p>If problems still persist, the moderators can ban the offender. Banning should
+occur for progressively longer periods, for example starting at 1 day, then 1
+week, then permanent. The moderation subteam will determine the precise
+guidelines here.</p>
+</li>
+</ul>
+<p>In general, moderators can and should unilaterally take the first step, but
+steps beyond that (particularly banning) should be done via consensus with the
+other moderators. Permanent bans require core team approval.</p>
+<p>Some situations call for more immediate, drastic measures: deeply inappropriate
+comments, harassment, or comments that make people feel unsafe. (See the
+<a href="http://www.rust-lang.org/conduct.html">code of conduct</a> for some more details
+about this kind of comment). In these cases, an individual moderator is free to
+take immediate, unilateral steps including redacting or removing comments, or
+instituting a short-term ban until the subteam can convene to deal with the
+situation.</p>
+<p>The moderation team is responsible for interpreting the CoC. Drastic measures
+like bans should only be used in cases of clear, repeated violations.</p>
+<p>Moderators themselves are held to a very high standard of behavior, and should
+strive for professional and impersonal interactions when dealing with a CoC
+violation. They should always push to <em>de-escalate</em>. And they should recuse
+themselves from moderation in threads where they are actively participating in
+the technical debate or otherwise have a conflict of interest. Moderators who
+fail to keep up this standard, or who abuse the moderation process, may be
+removed by the core team.</p>
+<p>Subteam, and especially core team members are <em>also</em> held to a high standard of
+behavior. Part of the reason to separate the moderation subteam is to ensure
+that CoC violations by Rust's leadership be addressed through the same
+independent body of moderators.</p>
+<p>Moderation covers all rust-lang venues, which currently include github
+repos, IRC channels (#rust, #rust-internals, #rustc, #rust-libs), and
+the two discourse forums. (The subreddit already has its own
+moderation structure, and isn't directly associated with the rust-lang
+organization.)</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../docs-rs/migrate-s3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../infra/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../docs-rs/migrate-s3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../infra/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="../js/moment.min.js"></script>
+        
+        <script type="text/javascript" src="../js/index.js"></script>
+        
+
+        
+
+    </body>
+</html>

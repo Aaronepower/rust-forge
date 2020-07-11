@@ -1,16 +1,23 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Triage Procedure - Rust Forge</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Supplemental documentation for contributing to The Rust Programming Language">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -32,11 +40,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -60,8 +68,11 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -78,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="affix"><a href="../index.html">Overview</a></li><li><a href="../compiler/index.html">Compiler</a></li><li><ol class="section"><li><a href="../compiler/bug-fix-procedure.html">Bug Fix Procedure</a></li><li><a href="../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li><a href="../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li><a href="../compiler/profile-queries.html">Profiling Queries</a></li></ol></li><li><a href="../infra/index.html">Infrastructure</a></li><li><ol class="section"><li><a href="../infra/other-installation-methods.html">Other Installation Methods</a></li><li><a href="../infra/channel-layout.html">Release Channel Layout</a></li><li><a href="../infra/service-infrastructure.html">Service Infrastructure</a></li><li><a href="../infra/team-maintenance.html">Team Maintenance</a></li><li><a href="../infra/toolstate.html">The Toolstate System</a></li></ol></li><li><a href="../lang/index.html">Language</a></li><li><ol class="section"><li><a href="../lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li></ol></li><li><a href="../release/index.html">Release</a></li><li><ol class="section"><li><a href="../release/beta-backporting.html">Beta Backporting</a></li><li><a href="../release/platform-support.html">Platform Support</a></li><li><a href="../release/release-notes.html">Preparing Release Notes</a></li><li><a href="../release/process.html">Release Process</a></li><li><a href="../release/triage-procedure.html" class="active">Triage Procedure</a></li></ol></li><li><a href="../archive/index.html">Archive</a></li><li><ol class="section"><li><a href="../archive/fott.html">Friends of the Tree</a></li><li><a href="../archive/release-history.html">Release History</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Overview</a></li><li class="chapter-item expanded "><a href="../platforms/index.html">Platforms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../platforms/discord.html">Discord</a></li><li class="chapter-item expanded "><a href="../platforms/email.html">Email</a></li><li class="chapter-item expanded "><a href="../platforms/github.html">GitHub</a></li><li class="chapter-item expanded "><a href="../platforms/zulip.html">Zulip</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../platforms/zulip/moderation.html">Moderation</a></li><li class="chapter-item expanded "><a href="../platforms/zulip/triagebot.html">Triagebot</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../core/index.html">Core</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core/blogs.html">Rust Blog Guidelines</a></li><li class="chapter-item expanded "><a href="../core/legal.html">Legal counsel</a></li></ol></li><li class="chapter-item expanded "><a href="../community/index.html">Community</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../community/survey-faq.html">State of Rust Survey FAQ</a></li></ol></li><li class="chapter-item expanded "><a href="../compiler/index.html">Compiler</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li class="chapter-item expanded "><a href="../compiler/reviews.html">Review policies</a></li><li class="chapter-item expanded "><a href="../compiler/new_option.html">So you want to add a new option to rustc?</a></li><li class="chapter-item expanded "><a href="../compiler/mcp.html">Major Change Proposals</a></li><li class="chapter-item expanded "><a href="../compiler/membership.html">Membership</a></li><li class="chapter-item expanded "><a href="../compiler/notification-groups.html">Notification groups</a></li><li class="chapter-item expanded "><a href="../compiler/triage-meeting.html">Triage Meeting</a></li><li class="chapter-item expanded "><a href="../compiler/steering-meeting.html">Steering Meeting</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiler/steering-meeting/submit.html">Submitting a proposal</a></li><li class="chapter-item expanded "><a href="../compiler/steering-meeting/how-to-run-planning.html">How to run the planning meeting</a></li><li class="chapter-item expanded "><a href="../compiler/steering-meeting/how-to-run-design.html">How to run a design meeting</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../crates-io/index.html">crates.io</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../crates-io/crate-removal.html">Crate removal</a></li></ol></li><li class="chapter-item expanded "><a href="../docs-rs/index.html">docs.rs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../docs-rs/add-dependencies.html">Adding dependencies to the build environment</a></li><li class="chapter-item expanded "><a href="../docs-rs/no-docker-compose.html">Developing without docker-compose</a></li><li class="chapter-item expanded "><a href="../docs-rs/self-hosting.html">Self-hosting a docs.rs instance</a></li><li class="chapter-item expanded "><a href="../docs-rs/maintenance.html">Maintenance procedures</a></li><li class="chapter-item expanded "><a href="../docs-rs/migrate-s3.html">Migrating from a local database to S3</a></li></ol></li><li class="chapter-item expanded "><a href="../governance/index.html">Governance</a></li><li class="chapter-item expanded "><a href="../infra/index.html">Infrastructure</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/other-installation-methods.html">Other Installation Methods</a></li><li class="chapter-item expanded "><a href="../infra/channel-layout.html">Release Channel Layout</a></li><li class="chapter-item expanded "><a href="../infra/service-infrastructure.html">Service Infrastructure</a></li><li class="chapter-item expanded "><a href="../infra/team-maintenance.html">Team Maintenance</a></li><li class="chapter-item expanded "><a href="../infra/toolstate.html">The Toolstate System</a></li><li class="chapter-item expanded "><a href="../infra/policies/index.html">Policies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/policies/broken-nightlies.html">Broken nightlies</a></li></ol></li><li class="chapter-item expanded "><a href="../infra/guidelines/index.html">Guidelines</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/guidelines/static-websites.html">Static websites</a></li></ol></li><li class="chapter-item expanded "><a href="../infra/docs/index.html">Documentation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/docs/aws-access.html">AWS access for team members</a></li><li class="chapter-item expanded "><a href="../infra/docs/aws-access-management.html">AWS access management</a></li><li class="chapter-item expanded "><a href="../infra/docs/bastion.html">Bastion server</a></li><li class="chapter-item expanded "><a href="../infra/docs/crater-agents.html">Crater agents</a></li><li class="chapter-item expanded "><a href="../infra/docs/gha-self-hosted.html">Custom GitHub Actions runners</a></li><li class="chapter-item expanded "><a href="../infra/docs/discord-mods-bot.html">Discord moderation bot</a></li><li class="chapter-item expanded "><a href="../infra/docs/dns.html">Domain names and DNS</a></li><li class="chapter-item expanded "><a href="../infra/docs/docs-rs.html">docs.rs</a></li><li class="chapter-item expanded "><a href="../infra/docs/ecs-services.html">ECS services management</a></li><li class="chapter-item expanded "><a href="../infra/docs/monitoring.html">Monitoring</a></li><li class="chapter-item expanded "><a href="../infra/docs/rust-bots.html">rust-bots server</a></li><li class="chapter-item expanded "><a href="../infra/docs/rustc-ci.html">rust-lang/rust CI</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../lang/index.html">Language</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li><li class="chapter-item expanded "><a href="../lang/triage-meeting-procedure.html">Triage Meeting Procedure</a></li></ol></li><li class="chapter-item expanded "><a href="../libs/index.html">Libs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../libs/maintaining-std.html">Maintaining the standard library</a></li></ol></li><li class="chapter-item expanded "><a href="../release/index.html">Release</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../release/beta-backporting.html">Beta Backporting</a></li><li class="chapter-item expanded "><a href="../release/platform-support.html">Platform Support</a></li><li class="chapter-item expanded "><a href="../release/release-notes.html">Preparing Release Notes</a></li><li class="chapter-item expanded "><a href="../release/process.html">Release Process</a></li><li class="chapter-item expanded "><a href="../release/rollups.html">Rollup Procedure</a></li><li class="chapter-item expanded "><a href="../release/triage-procedure.html" class="active">Triage Procedure</a></li><li class="chapter-item expanded "><a href="../release/crater.html">Triaging Crater Runs</a></li></ol></li><li class="chapter-item expanded "><a href="../archive/index.html">Archive</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../archive/fott.html">Friends of the Tree</a></li><li class="chapter-item expanded "><a href="../archive/release-history.html">Release History</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -87,41 +98,40 @@
 
             <div class="page">
                 
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
 
-                        <h1 class="menu-title">Rust Forge</h1>
+                    <h1 class="menu-title">Rust Forge</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                            <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
-                                <i id="git-repository-button" class="fa fa-github"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
                     </div>
                 </div>
 
@@ -153,11 +163,11 @@
 <h2><a class="header" href="#pull-request-triage" id="pull-request-triage">Pull Request Triage</a></h2>
 <h3><a class="header" href="#status-tags" id="status-tags">Status Tags</a></h3>
 <ul>
-<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-author">S-waiting-on-author</a> - Author needs to make changes to address reviewer
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+draft%3Afalse+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-author+-label%3AI-nominated+-label%3Aneeds-fcp">S-waiting-on-author</a> - Author needs to make changes to address reviewer
 comments, or merge conflicts/test failures are present. This also covers more
 obscure cases, like a PR being blocked on another, or waiting for a <a href="https://github.com/rust-lang-nursery/crater">crater</a>
 run -- it is the author's responsibility to push the PR forward.</li>
-<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-review">S-waiting-on-review</a> - Review is incomplete</li>
+<li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+draft%3Afalse+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-review+-label%3AI-nominated+-label%3Aneeds-fcp">S-waiting-on-review</a> - Review is incomplete</li>
 <li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-team+sort%3Aupdated-desc">S-waiting-on-team</a> - A T- label is marked, and team has been cc-ed for
 feedback.</li>
 <li><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-bors+sort%3Aupdated-asc">S-waiting-on-bors</a> - Currently approved, waiting to merge. Managed by <a href="https://github.com/rust-lang/homu">Bors</a>.</li>
@@ -185,7 +195,7 @@ tag if necessary, and apply the procedure for the new tag.</p>
 <h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprno3aassigneeunassigned-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprno3aassigneeunassigned-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+no%3Aassignee">Unassigned PRs</a></a></h4>
 <p>All PRs that have no assignee (except rollups) should be assigned to a random
 member of the responsible team.</p>
-<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsutf8e29c93qis3aopen20is3apr20sort3aupdated-asc20-label3as-waiting-on-author20-label3as-waiting-on-team20-label3as-waiting-on-bors20-label3as-waiting-on-crater20-label3as-waiting-on-team20-label3as-waiting-on-review20-label3as-blocked20-label3as-waiting-on-bikeshed20-label3as-waiting-on-fcp20-label3as-waiting-on-perfunlabeled-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsutf8e29c93qis3aopen20is3apr20sort3aupdated-asc20-label3as-waiting-on-author20-label3as-waiting-on-team20-label3as-waiting-on-bors20-label3as-waiting-on-crater20-label3as-waiting-on-team20-label3as-waiting-on-review20-label3as-blocked20-label3as-waiting-on-bikeshed20-label3as-waiting-on-fcp20-label3as-waiting-on-perfunlabeled-prsa"><a href="https://github.com/rust-lang/rust/pulls?utf8=%E2%9C%93&amp;q=is%3Aopen%20is%3Apr%20sort%3Aupdated-asc%20-label%3AS-waiting-on-author%20-label%3AS-waiting-on-team%20-label%3AS-waiting-on-bors%20-label%3AS-waiting-on-crater%20-label%3AS-waiting-on-team%20-label%3AS-waiting-on-review%20-label%3AS-blocked%20-label%3AS-waiting-on-bikeshed%20-label%3AS-waiting-on-fcp%20-label%3AS-waiting-on-perf">Unlabeled PRs</a></a></h4>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsutf8e29c93qis3aopen20is3apr20sort3aupdated-asc20-label3as-inactive20-label3as-waiting-on-author20-label3as-waiting-on-team20-label3as-waiting-on-bors20-label3as-waiting-on-crater20-label3as-waiting-on-team20-label3as-waiting-on-review20-label3as-blocked20-label3as-waiting-on-bikeshed20-label3as-waiting-on-fcp20-label3as-waiting-on-perfunlabeled-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsutf8e29c93qis3aopen20is3apr20sort3aupdated-asc20-label3as-inactive20-label3as-waiting-on-author20-label3as-waiting-on-team20-label3as-waiting-on-bors20-label3as-waiting-on-crater20-label3as-waiting-on-team20-label3as-waiting-on-review20-label3as-blocked20-label3as-waiting-on-bikeshed20-label3as-waiting-on-fcp20-label3as-waiting-on-perfunlabeled-prsa"><a href="https://github.com/rust-lang/rust/pulls?utf8=%E2%9C%93&amp;q=is%3Aopen%20is%3Apr%20sort%3Aupdated-asc%20-label%3AS-inactive%20-label%3AS-waiting-on-author%20-label%3AS-waiting-on-team%20-label%3AS-waiting-on-bors%20-label%3AS-waiting-on-crater%20-label%3AS-waiting-on-team%20-label%3AS-waiting-on-review%20-label%3AS-blocked%20-label%3AS-waiting-on-bikeshed%20-label%3AS-waiting-on-fcp%20-label%3AS-waiting-on-perf">Unlabeled PRs</a></a></h4>
 <p>All unlabeled PRs should be processed. The steps below are not mutually
 exclusive, any number of them may apply.</p>
 <p>When <strong>no review has happened</strong>, if the PR is a work in progress (e.g., test
@@ -195,7 +205,7 @@ the submitter as a regular contributor, leave a comment saying something like
 &quot;Thanks for the PR! We’ll periodically check in on it to make sure that
 @reviewer or someone else from the team reviews it soon.&quot;</p>
 <p>At this point, all PRs must have a tag applied.</p>
-<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprsort3aupdated-asclabel3as-waiting-on-authors-waiting-on-author-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprsort3aupdated-asclabel3as-waiting-on-authors-waiting-on-author-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-author">S-waiting-on-author PRs</a></a></h4>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopendraft3afalseis3aprsort3aupdated-asclabel3as-waiting-on-author-label3ai-nominated-label3aneeds-fcps-waiting-on-author-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopendraft3afalseis3aprsort3aupdated-asclabel3as-waiting-on-author-label3ai-nominated-label3aneeds-fcps-waiting-on-author-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+draft%3Afalse+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-author+-label%3AI-nominated+-label%3Aneeds-fcp">S-waiting-on-author PRs</a></a></h4>
 <p>PRs with, roughly, more than a week of inactivity need to be processed. These
 can be found by looking at the &quot;updated X days ago&quot; on GitHub's PR list.</p>
 <p>If the author hasn't responded for more than a week to a request for changes or
@@ -219,7 +229,7 @@ comment clearly identifying what is blocking the PR (something like &quot;This P
 appears to be blocked on #12345&quot;) and change the state to <code>S-blocked</code>. Follow
 the instruction for <code>S-blocked</code> to determine whether you should also close the
 PR.</p>
-<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprsort3aupdated-asclabel3as-waiting-on-reviews-waiting-on-review-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprsort3aupdated-asclabel3as-waiting-on-reviews-waiting-on-review-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-review">S-waiting-on-review PRs</a></a></h4>
+<h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopendraft3afalseis3aprsort3aupdated-asclabel3as-waiting-on-review-label3ai-nominated-label3aneeds-fcps-waiting-on-review-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopendraft3afalseis3aprsort3aupdated-asclabel3as-waiting-on-review-label3ai-nominated-label3aneeds-fcps-waiting-on-review-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+draft%3Afalse+is%3Apr+sort%3Aupdated-asc+label%3AS-waiting-on-review+-label%3AI-nominated+-label%3Aneeds-fcp">S-waiting-on-review PRs</a></a></h4>
 <p>PRs with, roughly, more than a week of inactivity need to be processed. These
 can be found by looking at the &quot;updated X days ago&quot; on GitHub's PR list.</p>
 <p>If the review is complete the label should be changed from <code>S-waiting-on-review</code>
@@ -239,6 +249,21 @@ Discord or pinging @Dylan-DPC will be necessary.</p>
 <p>If the PR is blocked on another PR, add a comment clearly identifying the
 blocking PR (something like &quot;This PR appears to be blocked on #12345&quot;) and
 change the state to <code>S-blocked</code>.</p>
+<p>If the pr is tagged with <code>final-comment-period</code> it does not need to be triaged unless the process has stalled for a reasonable period of time. These PRs have a form from RFCbot that looks like:</p>
+<blockquote>
+<p>Team member <strong>@Donald</strong> has proposed to merge this. The next step is review by the rest of the tagged team members:</p>
+<ul>
+<li><input disabled="" type="checkbox"/>
+@Huey</li>
+<li><input disabled="" type="checkbox" checked=""/>
+@Dewey</li>
+<li><input disabled="" type="checkbox"/>
+@Louie</li>
+</ul>
+</blockquote>
+<p>At this point, ping the appropriate people to check their boxes to sign off on the PR.</p>
+<p>If <em>this</em> stalls nominate the PR for prioritizing at the next team triage meeting by marking it with <code>I-nominated</code>.</p>
+<p>PRs tagged with <code>finshed-final-comment-period</code> are eligible for triage.</p>
 <h4><a class="header" href="#a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-teamsort3aupdated-descs-waiting-on-team-prsa" id="a-hrefhttpsgithubcomrust-langrustpullsqis3aopenis3aprlabel3as-waiting-on-teamsort3aupdated-descs-waiting-on-team-prsa"><a href="https://github.com/rust-lang/rust/pulls?q=is%3Aopen+is%3Apr+label%3AS-waiting-on-team+sort%3Aupdated-desc">S-waiting-on-team PRs</a></a></h4>
 <p>PRs active within the last 4 days or inactive for greater than 2 weeks need to
 be processed. These can be found by looking at the &quot;updated X days ago&quot; on
@@ -290,7 +315,7 @@ of thumb, consider these guidelines:</p>
 <ul>
 <li>PRs blocked on discussion (such as RFCs or WG decisions) should be closed
 immediately, since those discussions generally take a long time.</li>
-<li>PRs blocked on other PRs can be left open, unless the blocking PR doesn't look
+<li>PRs blocked on other PRs should be closed, unless the blocking PR looks
 like it's going to be merged soon.</li>
 <li>PRs which have already been blocked for two weeks should generally be closed,
 unless there is a clear indication that they will be unblocked soon.</li>
@@ -411,13 +436,13 @@ column.</li>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../release/process.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../release/rollups.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../archive/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../release/crater.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -429,13 +454,13 @@ column.</li>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../release/process.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../release/rollups.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../archive/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../release/crater.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -445,6 +470,14 @@ column.</li>
 
         
 
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
         
 
         

@@ -1,16 +1,23 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Platform Support - Rust Forge</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Supplemental documentation for contributing to The Rust Programming Language">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
@@ -19,8 +26,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -32,11 +40,11 @@
 
         
     </head>
-    <body class="light">
+    <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "../";
-            var default_theme = "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -60,8 +68,11 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
@@ -78,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="affix"><a href="../index.html">Overview</a></li><li><a href="../compiler/index.html">Compiler</a></li><li><ol class="section"><li><a href="../compiler/bug-fix-procedure.html">Bug Fix Procedure</a></li><li><a href="../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li><a href="../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li><a href="../compiler/profile-queries.html">Profiling Queries</a></li></ol></li><li><a href="../infra/index.html">Infrastructure</a></li><li><ol class="section"><li><a href="../infra/other-installation-methods.html">Other Installation Methods</a></li><li><a href="../infra/channel-layout.html">Release Channel Layout</a></li><li><a href="../infra/service-infrastructure.html">Service Infrastructure</a></li><li><a href="../infra/team-maintenance.html">Team Maintenance</a></li><li><a href="../infra/toolstate.html">The Toolstate System</a></li></ol></li><li><a href="../lang/index.html">Language</a></li><li><ol class="section"><li><a href="../lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li></ol></li><li><a href="../release/index.html">Release</a></li><li><ol class="section"><li><a href="../release/beta-backporting.html">Beta Backporting</a></li><li><a href="../release/platform-support.html" class="active">Platform Support</a></li><li><a href="../release/release-notes.html">Preparing Release Notes</a></li><li><a href="../release/process.html">Release Process</a></li><li><a href="../release/triage-procedure.html">Triage Procedure</a></li></ol></li><li><a href="../archive/index.html">Archive</a></li><li><ol class="section"><li><a href="../archive/fott.html">Friends of the Tree</a></li><li><a href="../archive/release-history.html">Release History</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Overview</a></li><li class="chapter-item expanded "><a href="../platforms/index.html">Platforms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../platforms/discord.html">Discord</a></li><li class="chapter-item expanded "><a href="../platforms/email.html">Email</a></li><li class="chapter-item expanded "><a href="../platforms/github.html">GitHub</a></li><li class="chapter-item expanded "><a href="../platforms/zulip.html">Zulip</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../platforms/zulip/moderation.html">Moderation</a></li><li class="chapter-item expanded "><a href="../platforms/zulip/triagebot.html">Triagebot</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../core/index.html">Core</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core/blogs.html">Rust Blog Guidelines</a></li><li class="chapter-item expanded "><a href="../core/legal.html">Legal counsel</a></li></ol></li><li class="chapter-item expanded "><a href="../community/index.html">Community</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../community/survey-faq.html">State of Rust Survey FAQ</a></li></ol></li><li class="chapter-item expanded "><a href="../compiler/index.html">Compiler</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li class="chapter-item expanded "><a href="../compiler/reviews.html">Review policies</a></li><li class="chapter-item expanded "><a href="../compiler/new_option.html">So you want to add a new option to rustc?</a></li><li class="chapter-item expanded "><a href="../compiler/mcp.html">Major Change Proposals</a></li><li class="chapter-item expanded "><a href="../compiler/membership.html">Membership</a></li><li class="chapter-item expanded "><a href="../compiler/notification-groups.html">Notification groups</a></li><li class="chapter-item expanded "><a href="../compiler/triage-meeting.html">Triage Meeting</a></li><li class="chapter-item expanded "><a href="../compiler/steering-meeting.html">Steering Meeting</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../compiler/steering-meeting/submit.html">Submitting a proposal</a></li><li class="chapter-item expanded "><a href="../compiler/steering-meeting/how-to-run-planning.html">How to run the planning meeting</a></li><li class="chapter-item expanded "><a href="../compiler/steering-meeting/how-to-run-design.html">How to run a design meeting</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../crates-io/index.html">crates.io</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../crates-io/crate-removal.html">Crate removal</a></li></ol></li><li class="chapter-item expanded "><a href="../docs-rs/index.html">docs.rs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../docs-rs/add-dependencies.html">Adding dependencies to the build environment</a></li><li class="chapter-item expanded "><a href="../docs-rs/no-docker-compose.html">Developing without docker-compose</a></li><li class="chapter-item expanded "><a href="../docs-rs/self-hosting.html">Self-hosting a docs.rs instance</a></li><li class="chapter-item expanded "><a href="../docs-rs/maintenance.html">Maintenance procedures</a></li><li class="chapter-item expanded "><a href="../docs-rs/migrate-s3.html">Migrating from a local database to S3</a></li></ol></li><li class="chapter-item expanded "><a href="../governance/index.html">Governance</a></li><li class="chapter-item expanded "><a href="../infra/index.html">Infrastructure</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/other-installation-methods.html">Other Installation Methods</a></li><li class="chapter-item expanded "><a href="../infra/channel-layout.html">Release Channel Layout</a></li><li class="chapter-item expanded "><a href="../infra/service-infrastructure.html">Service Infrastructure</a></li><li class="chapter-item expanded "><a href="../infra/team-maintenance.html">Team Maintenance</a></li><li class="chapter-item expanded "><a href="../infra/toolstate.html">The Toolstate System</a></li><li class="chapter-item expanded "><a href="../infra/policies/index.html">Policies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/policies/broken-nightlies.html">Broken nightlies</a></li></ol></li><li class="chapter-item expanded "><a href="../infra/guidelines/index.html">Guidelines</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/guidelines/static-websites.html">Static websites</a></li></ol></li><li class="chapter-item expanded "><a href="../infra/docs/index.html">Documentation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../infra/docs/aws-access.html">AWS access for team members</a></li><li class="chapter-item expanded "><a href="../infra/docs/aws-access-management.html">AWS access management</a></li><li class="chapter-item expanded "><a href="../infra/docs/bastion.html">Bastion server</a></li><li class="chapter-item expanded "><a href="../infra/docs/crater-agents.html">Crater agents</a></li><li class="chapter-item expanded "><a href="../infra/docs/gha-self-hosted.html">Custom GitHub Actions runners</a></li><li class="chapter-item expanded "><a href="../infra/docs/discord-mods-bot.html">Discord moderation bot</a></li><li class="chapter-item expanded "><a href="../infra/docs/dns.html">Domain names and DNS</a></li><li class="chapter-item expanded "><a href="../infra/docs/docs-rs.html">docs.rs</a></li><li class="chapter-item expanded "><a href="../infra/docs/ecs-services.html">ECS services management</a></li><li class="chapter-item expanded "><a href="../infra/docs/monitoring.html">Monitoring</a></li><li class="chapter-item expanded "><a href="../infra/docs/rust-bots.html">rust-bots server</a></li><li class="chapter-item expanded "><a href="../infra/docs/rustc-ci.html">rust-lang/rust CI</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../lang/index.html">Language</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li><li class="chapter-item expanded "><a href="../lang/triage-meeting-procedure.html">Triage Meeting Procedure</a></li></ol></li><li class="chapter-item expanded "><a href="../libs/index.html">Libs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../libs/maintaining-std.html">Maintaining the standard library</a></li></ol></li><li class="chapter-item expanded "><a href="../release/index.html">Release</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../release/beta-backporting.html">Beta Backporting</a></li><li class="chapter-item expanded "><a href="../release/platform-support.html" class="active">Platform Support</a></li><li class="chapter-item expanded "><a href="../release/release-notes.html">Preparing Release Notes</a></li><li class="chapter-item expanded "><a href="../release/process.html">Release Process</a></li><li class="chapter-item expanded "><a href="../release/rollups.html">Rollup Procedure</a></li><li class="chapter-item expanded "><a href="../release/triage-procedure.html">Triage Procedure</a></li><li class="chapter-item expanded "><a href="../release/crater.html">Triaging Crater Runs</a></li></ol></li><li class="chapter-item expanded "><a href="../archive/index.html">Archive</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../archive/fott.html">Friends of the Tree</a></li><li class="chapter-item expanded "><a href="../archive/release-history.html">Release History</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -87,41 +98,40 @@
 
             <div class="page">
                 
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
 
-                        <h1 class="menu-title">Rust Forge</h1>
+                    <h1 class="menu-title">Rust Forge</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                            <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
-                                <i id="git-repository-button" class="fa fa-github"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
                     </div>
                 </div>
 
@@ -167,7 +177,6 @@ tests passing.</li>
 <li>Documentation for how to use and how to build the platform is available.</li>
 </ul>
 <table><thead><tr><th>target</th><th>std</th><th>rustc</th><th>cargo</th><th>notes</th></tr></thead><tbody>
-<tr><td><code>i686-apple-darwin</code></td><td>✓</td><td>✓</td><td>✓</td><td>32-bit OSX (10.7+, Lion+)</td></tr>
 <tr><td><code>i686-pc-windows-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>32-bit MinGW (Windows 7+)</td></tr>
 <tr><td><code>i686-pc-windows-msvc</code></td><td>✓</td><td>✓</td><td>✓</td><td>32-bit MSVC (Windows 7+)</td></tr>
 <tr><td><code>i686-unknown-linux-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>32-bit Linux (2.6.18+)</td></tr>
@@ -195,6 +204,8 @@ compiled, but for others <code>rustc</code> and <code>cargo</code> are too.</li>
 <tr><td><code>aarch64-pc-windows-msvc</code></td><td>✓</td><td></td><td></td><td>ARM64 Windows MSVC</td></tr>
 <tr><td><code>aarch64-unknown-linux-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>ARM64 Linux</td></tr>
 <tr><td><code>aarch64-unknown-linux-musl</code></td><td>✓</td><td></td><td></td><td>ARM64 Linux with MUSL</td></tr>
+<tr><td><code>aarch64-unknown-none</code></td><td>*</td><td></td><td></td><td>Bare ARM64, hardfloat</td></tr>
+<tr><td><code>aarch64-unknown-none-softfloat</code></td><td>*</td><td></td><td></td><td>Bare ARM64, softfloat</td></tr>
 <tr><td><code>arm-linux-androideabi</code></td><td>✓</td><td></td><td></td><td>ARMv7 Android</td></tr>
 <tr><td><code>arm-unknown-linux-gnueabi</code></td><td>✓</td><td>✓</td><td>✓</td><td>ARMv6 Linux</td></tr>
 <tr><td><code>arm-unknown-linux-gnueabihf</code></td><td>✓</td><td>✓</td><td>✓</td><td>ARMv6 Linux, hardfloat</td></tr>
@@ -204,14 +215,15 @@ compiled, but for others <code>rustc</code> and <code>cargo</code> are too.</li>
 <tr><td><code>armebv7r-none-eabihf</code></td><td>*</td><td></td><td></td><td>Bare ARMv7-R, Big Endian, hardfloat</td></tr>
 <tr><td><code>armv5te-unknown-linux-gnueabi</code></td><td>✓</td><td></td><td></td><td>ARMv5TE Linux</td></tr>
 <tr><td><code>armv5te-unknown-linux-musleabi</code></td><td>✓</td><td></td><td></td><td>ARMv5TE Linux with MUSL</td></tr>
-<tr><td><code>armv7-apple-ios</code></td><td>✓</td><td></td><td></td><td>ARMv7 iOS, Cortex-a8</td></tr>
 <tr><td><code>armv7-linux-androideabi</code></td><td>✓</td><td></td><td></td><td>ARMv7a Android</td></tr>
-<tr><td><code>armv7-none-eabi</code></td><td>*</td><td></td><td></td><td>Bare ARMv7-R</td></tr>
-<tr><td><code>armv7-none-eabihf</code></td><td>*</td><td></td><td></td><td>Bare ARMv7-R, hardfloat</td></tr>
-<tr><td><code>armv7-unknown-linux-gnueabihf</code></td><td>✓</td><td>✓</td><td>✓</td><td>ARMv7 Linux</td></tr>
+<tr><td><code>armv7a-none-eabi</code></td><td>*</td><td></td><td></td><td>Bare ARMv7-A</td></tr>
+<tr><td><code>armv7r-none-eabi</code></td><td>*</td><td></td><td></td><td>Bare ARMv7-R</td></tr>
+<tr><td><code>armv7r-none-eabihf</code></td><td>*</td><td></td><td></td><td>Bare ARMv7-R, hardfloat</td></tr>
+<tr><td><code>armv7-unknown-linux-gnueabi</code></td><td>✓</td><td></td><td></td><td>ARMv7 Linux, glibc</td></tr>
+<tr><td><code>armv7-unknown-linux-gnueabihf</code></td><td>✓</td><td>✓</td><td>✓</td><td>ARMv7 Linux, hardfloat</td></tr>
+<tr><td><code>armv7-unknown-linux-musleabi</code></td><td>✓</td><td></td><td></td><td>ARMv7 Linux, MUSL</td></tr>
 <tr><td><code>armv7-unknown-linux-musleabihf</code></td><td>✓</td><td></td><td></td><td>ARMv7 Linux with MUSL</td></tr>
 <tr><td><code>asmjs-unknown-emscripten</code></td><td>✓</td><td></td><td></td><td>asm.js via Emscripten</td></tr>
-<tr><td><code>i386-apple-ios</code></td><td>✓</td><td></td><td></td><td>32-bit x86 iOS</td></tr>
 <tr><td><code>i586-pc-windows-msvc</code></td><td>✓</td><td></td><td></td><td>32-bit Windows w/o SSE</td></tr>
 <tr><td><code>i586-unknown-linux-gnu</code></td><td>✓</td><td></td><td></td><td>32-bit Linux w/o SSE</td></tr>
 <tr><td><code>i586-unknown-linux-musl</code></td><td>✓</td><td></td><td></td><td>32-bit Linux w/o SSE, MUSL</td></tr>
@@ -221,14 +233,19 @@ compiled, but for others <code>rustc</code> and <code>cargo</code> are too.</li>
 <tr><td><code>mips-unknown-linux-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>MIPS Linux</td></tr>
 <tr><td><code>mips-unknown-linux-musl</code></td><td>✓</td><td></td><td></td><td>MIPS Linux with MUSL</td></tr>
 <tr><td><code>mips64-unknown-linux-gnuabi64</code></td><td>✓</td><td>✓</td><td>✓</td><td>MIPS64 Linux, n64 ABI</td></tr>
+<tr><td><code>mips64-unknown-linux-muslabi64</code></td><td>✓</td><td></td><td></td><td>MIPS64 Linux, n64 ABI, MUSL</td></tr>
 <tr><td><code>mips64el-unknown-linux-gnuabi64</code></td><td>✓</td><td>✓</td><td>✓</td><td>MIPS64 (LE) Linux, n64 ABI</td></tr>
+<tr><td><code>mips64el-unknown-linux-muslabi64</code></td><td>✓</td><td></td><td></td><td>MIPS64 (LE) Linux, n64 ABI, MUSL</td></tr>
 <tr><td><code>mipsel-unknown-linux-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>MIPS (LE) Linux</td></tr>
 <tr><td><code>mipsel-unknown-linux-musl</code></td><td>✓</td><td></td><td></td><td>MIPS (LE) Linux with MUSL</td></tr>
+<tr><td><code>nvptx64-nvidia-cuda</code></td><td>✓</td><td></td><td></td><td>--emit=asm generates PTX code that <a href="https://github.com/japaric-archived/nvptx#targets">runs on NVIDIA GPUs</a></td></tr>
 <tr><td><code>powerpc-unknown-linux-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>PowerPC Linux</td></tr>
 <tr><td><code>powerpc64-unknown-linux-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>PPC64 Linux</td></tr>
 <tr><td><code>powerpc64le-unknown-linux-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>PPC64LE Linux</td></tr>
+<tr><td><code>riscv32i-unknown-none-elf</code></td><td>*</td><td></td><td></td><td>Bare RISC-V (RV32I ISA)</td></tr>
 <tr><td><code>riscv32imac-unknown-none-elf</code></td><td>*</td><td></td><td></td><td>Bare RISC-V (RV32IMAC ISA)</td></tr>
 <tr><td><code>riscv32imc-unknown-none-elf</code></td><td>*</td><td></td><td></td><td>Bare RISC-V (RV32IMC ISA)</td></tr>
+<tr><td><code>riscv64gc-unknown-linux-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>RISC-V Linux</td></tr>
 <tr><td><code>riscv64gc-unknown-none-elf</code></td><td>*</td><td></td><td></td><td>Bare RISC-V (RV64IMAFDC ISA)</td></tr>
 <tr><td><code>riscv64imac-unknown-none-elf</code></td><td>*</td><td></td><td></td><td>Bare RISC-V (RV64IMAC ISA)</td></tr>
 <tr><td><code>s390x-unknown-linux-gnu</code></td><td>✓</td><td>✓</td><td>✓</td><td>S390x Linux</td></tr>
@@ -240,6 +257,9 @@ compiled, but for others <code>rustc</code> and <code>cargo</code> are too.</li>
 <tr><td><code>thumbv7m-none-eabi</code></td><td>*</td><td></td><td></td><td>Bare Cortex-M3</td></tr>
 <tr><td><code>thumbv7neon-linux-androideabi</code></td><td>✓</td><td></td><td></td><td>Thumb2-mode ARMv7a Android with NEON</td></tr>
 <tr><td><code>thumbv7neon-unknown-linux-gnueabihf</code></td><td>✓</td><td></td><td></td><td>Thumb2-mode ARMv7a Linux with NEON</td></tr>
+<tr><td><code>thumbv8m.base-none-eabi</code></td><td>*</td><td></td><td></td><td>ARMv8-M Baseline</td></tr>
+<tr><td><code>thumbv8m.main-none-eabi</code></td><td>*</td><td></td><td></td><td>ARMv8-M Mainline</td></tr>
+<tr><td><code>thumbv8m.main-none-eabihf</code></td><td>*</td><td></td><td></td><td>ARMv8-M Baseline, hardfloat</td></tr>
 <tr><td><code>wasm32-unknown-emscripten</code></td><td>✓</td><td></td><td></td><td>WebAssembly via Emscripten</td></tr>
 <tr><td><code>wasm32-unknown-unknown</code></td><td>✓</td><td></td><td></td><td>WebAssembly</td></tr>
 <tr><td><code>wasm32-wasi</code></td><td>✓</td><td></td><td></td><td>WebAssembly with WASI</td></tr>
@@ -256,87 +276,76 @@ compiled, but for others <code>rustc</code> and <code>cargo</code> are too.</li>
 <tr><td><code>x86_64-unknown-netbsd</code></td><td>✓</td><td>✓</td><td>✓</td><td>NetBSD/amd64</td></tr>
 <tr><td><code>x86_64-unknown-redox</code></td><td>✓</td><td></td><td></td><td>Redox OS</td></tr>
 </tbody></table>
-<h2><a class="header" href="#tier-25" id="tier-25">Tier 2.5</a></h2>
-<p>Tier 2.5 platforms can be thought of as &quot;guaranteed to build&quot;, but without
-builds available through <code>rustup</code>. Automated tests are not run so it's not
-guaranteed to produce a working build, but platforms often work to quite a good
-degree and patches are always welcome! Specifically, these platforms are
-required to have each of the following:</p>
-<ul>
-<li>Automated building is set up, but may not be running tests.</li>
-<li>Landing changes to the <code>rust-lang/rust</code> repository's master branch is gated on
-platforms <strong>building</strong>. For some platforms only the standard library is
-compiled, but for others <code>rustc</code> and <code>cargo</code> are too.</li>
-</ul>
-<p><strong>This status is accidental: no new platforms should reach this state</strong></p>
-<table><thead><tr><th>target</th><th>std</th><th>rustc</th><th>cargo</th><th>notes</th></tr></thead><tbody>
-<tr><td><code>aarch64-unknown-cloudabi</code></td><td>✓</td><td></td><td></td><td>ARM64 CloudABI</td></tr>
-<tr><td><code>armv7-unknown-cloudabi-eabihf</code></td><td>✓</td><td></td><td></td><td>ARMv7 CloudABI, hardfloat</td></tr>
-<tr><td><code>i686-unknown-cloudabi</code></td><td>✓</td><td></td><td></td><td>32-bit CloudABI</td></tr>
-<tr><td><code>powerpc-unknown-linux-gnuspe</code></td><td>✓</td><td></td><td></td><td>PowerPC SPE Linux</td></tr>
-<tr><td><code>sparc-unknown-linux-gnu</code></td><td>✓</td><td></td><td></td><td>32-bit SPARC Linux</td></tr>
-</tbody></table>
 <h2><a class="header" href="#tier-3" id="tier-3">Tier 3</a></h2>
 <p>Tier 3 platforms are those which the Rust codebase has support for, but which
 are not built or tested automatically, and may not work. Official builds are
 not available.</p>
 <table><thead><tr><th>target</th><th>std</th><th>rustc</th><th>cargo</th><th>notes</th></tr></thead><tbody>
-<tr><td><code>aarch64-unknown-freebsd</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>aarch64-apple-tvos</code></td><td>**</td><td></td><td></td><td>ARM64 tvOS</td></tr>
+<tr><td><code>aarch64-unknown-cloudabi</code></td><td>✓</td><td></td><td></td><td>ARM64 CloudABI</td></tr>
+<tr><td><code>aarch64-unknown-freebsd</code></td><td>✓</td><td>✓</td><td>✓</td><td>ARM64 FreeBSD</td></tr>
 <tr><td><code>aarch64-unknown-hermit</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>aarch64-unknown-netbsd</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>aarch64-unknown-none</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>aarch64-unknown-openbsd</code></td><td>✓</td><td>✓</td><td>✓</td><td>ARM64 OpenBSD</td></tr>
-<tr><td><code>aarch64-unknown-redox</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>aarch64-unknown-redox</code></td><td>?</td><td></td><td></td><td>ARM64 Redox OS</td></tr>
 <tr><td><code>aarch64-uwp-windows-msvc</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>aarch64-wrs-vxworks</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>armv4t-unknown-linux-gnueabi</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>armv6-unknown-freebsd</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>armv6-unknown-freebsd</code></td><td>✓</td><td>✓</td><td>✓</td><td>ARMv6 FreeBSD</td></tr>
 <tr><td><code>armv6-unknown-netbsd-eabihf</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>armv7-unknown-freebsd</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>armv7-apple-ios</code></td><td>✓</td><td></td><td></td><td>RMv7 iOS, Cortex-</td></tr>
+<tr><td><code>armv7-unknown-cloudabi-eabihf</code></td><td>✓</td><td></td><td></td><td>ARMv7 CloudABI, hardfloat</td></tr>
+<tr><td><code>armv7-unknown-freebsd</code></td><td>✓</td><td>✓</td><td>✓</td><td>ARMv7 FreeBSD</td></tr>
 <tr><td><code>armv7-unknown-netbsd-eabihf</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>armv7-wrs-vxworks-eabihf</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>armv7a-none-eabihf</code></td><td>*</td><td></td><td></td><td>ARM Cortex-A, hardfloat</td></tr>
+<tr><td><code>armv7s-apple-ios</code></td><td>✓</td><td></td><td></td><td></td></tr>
+<tr><td><code>avr-unknown-unknown</code></td><td>?</td><td></td><td></td><td>AVR</td></tr>
 <tr><td><code>hexagon-unknown-linux-musl</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>i386-apple-ios</code></td><td>✓</td><td></td><td></td><td>32-bit x86 iOS</td></tr>
+<tr><td><code>i686-apple-darwin</code></td><td>✓</td><td>✓</td><td>✓</td><td>32-bit OSX (10.7+, Lion+)</td></tr>
 <tr><td><code>i686-pc-windows-msvc</code></td><td>✓</td><td></td><td></td><td>32-bit Windows XP support</td></tr>
-<tr><td><code>i686-unknown-dragonfly</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>i686-unknown-haiku</code></td><td>✓</td><td></td><td></td><td>32-bit Haiku</td></tr>
+<tr><td><code>i686-unknown-cloudabi</code></td><td>✓</td><td></td><td></td><td>32-bit CloudABI</td></tr>
+<tr><td><code>i686-unknown-uefi</code></td><td>?</td><td></td><td></td><td>32-bit UEFI</td></tr>
+<tr><td><code>i686-unknown-haiku</code></td><td>✓</td><td>✓</td><td>✓</td><td>32-bit Haiku</td></tr>
 <tr><td><code>i686-unknown-netbsd</code></td><td>✓</td><td></td><td></td><td>NetBSD/i386 with SSE2</td></tr>
 <tr><td><code>i686-unknown-openbsd</code></td><td>✓</td><td>✓</td><td>✓</td><td>32-bit OpenBSD</td></tr>
 <tr><td><code>i686-uwp-windows-gnu</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>i686-uwp-windows-msvc</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>i686-wrs-vxworks</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>mips-unknown-linux-uclibc</code></td><td>✓</td><td></td><td></td><td>MIPS Linux with uClibc</td></tr>
-<tr><td><code>mips64-unknown-linux-muslabi64</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>mips64el-unknown-linux-muslabi64</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>mipsel-unknown-linux-uclibc</code></td><td>✓</td><td></td><td></td><td>MIPS (LE) Linux with uClibc</td></tr>
+<tr><td><code>mipsel-sony-psp</code></td><td>**</td><td></td><td></td><td>MIPS (LE) Sony PlayStation Portable (PSP)</td></tr>
 <tr><td><code>mipsisa32r6-unknown-linux-gnu</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>mipsisa32r6el-unknown-linux-gnu</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>mipsisa64r6-unknown-linux-gnuabi64</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>mipsisa64r6el-unknown-linux-gnuabi64</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>msp430-none-elf</code></td><td>*</td><td></td><td></td><td>16-bit MSP430 microcontrollers</td></tr>
-<tr><td><code>nvptx64-nvidia-cuda</code></td><td>**</td><td></td><td></td><td>--emit=asm generates PTX code that <a href="https://github.com/japaric-archived/nvptx#targets">runs on NVIDIA GPUs</a></td></tr>
-<tr><td><code>nvptx64-nvidia-cuda</code></td><td>**</td><td></td><td></td><td>--emit=asm generates PTX code that <a href="https://github.com/japaric-archived/nvptx#targets">runs on NVIDIA GPUs</a></td></tr>
+<tr><td><code>powerpc-unknown-linux-gnuspe</code></td><td>✓</td><td></td><td></td><td>PowerPC SPE Linux</td></tr>
 <tr><td><code>powerpc-unknown-linux-musl</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>powerpc-unknown-netbsd</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>powerpc-wrs-vxworks</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>powerpc-wrs-vxworks-spe</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>powerpc64-unknown-freebsd</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>powerpc64-unknown-freebsd</code></td><td>✓</td><td>✓</td><td>✓</td><td>PPC64 FreeBSD (ELFv1 and ELFv2)</td></tr>
 <tr><td><code>powerpc64-unknown-linux-musl</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>powerpc64-wrs-vxworks</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>powerpc64le-unknown-linux-musl</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>riscv32i-unknown-none-elf</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>sparc-unknown-linux-gnu</code></td><td>✓</td><td></td><td></td><td>32-bit SPARC Linux</td></tr>
 <tr><td><code>sparc64-unknown-netbsd</code></td><td>✓</td><td>✓</td><td></td><td>NetBSD/sparc64</td></tr>
 <tr><td><code>sparc64-unknown-openbsd</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>thumbv7a-pc-windows-msvc</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>thumbv8m.base-none-eabi</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>thumbv8m.main-none-eabi</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>thumbv8m.main-none-eabihf</code></td><td>?</td><td></td><td></td><td></td></tr>
-<tr><td><code>wasm32-experimental-emscripten</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>thumbv7a-uwp-windows-msvc</code></td><td>✓</td><td></td><td></td><td></td></tr>
+<tr><td><code>thumbv7neon-unknown-linux-musleabihf</code></td><td>?</td><td></td><td></td><td>Thumb2-mode ARMv7a Linux with NEON, MUSL</td></tr>
+<tr><td><code>x86_64-apple-ios-macabi</code></td><td>✓</td><td></td><td></td><td>Apple Catalyst</td></tr>
+<tr><td><code>x86_64-apple-tvos</code></td><td>**</td><td></td><td></td><td>x86 64-bit tvOS</td></tr>
+<tr><td><code>x86_64-linux-kernel</code></td><td>?</td><td></td><td></td><td>Linux kernel modules</td></tr>
 <tr><td><code>x86_64-pc-solaris</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>x86_64-pc-windows-msvc</code></td><td>✓</td><td></td><td></td><td>64-bit Windows XP support</td></tr>
-<tr><td><code>x86_64-unknown-bitrig</code></td><td>✓</td><td>✓</td><td></td><td>64-bit Bitrig</td></tr>
 <tr><td><code>x86_64-unknown-dragonfly</code></td><td>✓</td><td>✓</td><td>✓</td><td>64-bit DragonFlyBSD</td></tr>
-<tr><td><code>x86_64-unknown-haiku</code></td><td>✓</td><td></td><td></td><td>64-bit Haiku</td></tr>
+<tr><td><code>x86_64-unknown-haiku</code></td><td>✓</td><td>✓</td><td>✓</td><td>64-bit Haiku</td></tr>
 <tr><td><code>x86_64-unknown-hermit</code></td><td>?</td><td></td><td></td><td></td></tr>
+<tr><td><code>x86_64-unknown-hermit-kernel</code></td><td>?</td><td></td><td></td><td>HermitCore kernel</td></tr>
+<tr><td><code>x86_64-unknown-illumos</code></td><td>✓</td><td></td><td></td><td>illumos</td></tr>
 <tr><td><code>x86_64-unknown-l4re-uclibc</code></td><td>?</td><td></td><td></td><td></td></tr>
 <tr><td><code>x86_64-unknown-openbsd</code></td><td>✓</td><td>✓</td><td>✓</td><td>64-bit OpenBSD</td></tr>
 <tr><td><code>x86_64-unknown-uefi</code></td><td>?</td><td></td><td></td><td></td></tr>
@@ -344,19 +353,16 @@ not available.</p>
 <tr><td><code>x86_64-uwp-windows-msvc</code></td><td>✓</td><td></td><td></td><td></td></tr>
 <tr><td><code>x86_64-wrs-vxworks</code></td><td>?</td><td></td><td></td><td></td></tr>
 </tbody></table>
-<p>* These are bare-metal microcontroller targets that only have access to the
-core library, not std.</p>
-<p>** There’s backend support for these targets but no target built into rustc
-(yet). You’ll have to write your own target specification file (see the
-links in the table). These targets only support the core library.</p>
+<p>* These targets only support <code>core</code>, not <code>alloc</code> or <code>std</code>.</p>
+<p>** These targets only support <code>core</code> or <code>alloc</code>, not <code>std</code>.</p>
 <p>? These are targets that haven't yet been documented here. If you can shed some
 light on these platforms support, please create an issue or PR on the <a href="https://github.com/rust-lang/rust-forge">Rust
 Forge repo</a>.</p>
 <p>But those aren't the only platforms Rust can compile to! Those are the ones with
 built-in target definitions and/or standard library support. When linking only
-to the core library, Rust can also target &quot;bare metal&quot; in the x86, ARM, MIPS,
-and PowerPC families, though it may require defining custom target
-specifications to do so. All such scenarios are tier 3.</p>
+to the core library, Rust can also target additional &quot;bare metal&quot; platforms in
+the x86, ARM, MIPS, and PowerPC families, though it may require defining custom
+target specifications to do so.</p>
 
                     </main>
 
@@ -381,13 +387,13 @@ specifications to do so. All such scenarios are tier 3.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../release/beta-backporting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../release/beta-backporting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../release/release-notes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../release/release-notes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -397,6 +403,14 @@ specifications to do so. All such scenarios are tier 3.</p>
 
         
 
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
         
 
         

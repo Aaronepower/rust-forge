@@ -1,0 +1,414 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Triagebot - Rust Forge</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Supplemental documentation for contributing to The Rust Programming Language">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../index.html">Overview</a></li><li class="chapter-item expanded "><a href="../../platforms/index.html">Platforms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../platforms/discord.html">Discord</a></li><li class="chapter-item expanded "><a href="../../platforms/email.html">Email</a></li><li class="chapter-item expanded "><a href="../../platforms/github.html">GitHub</a></li><li class="chapter-item expanded "><a href="../../platforms/zulip.html">Zulip</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../platforms/zulip/moderation.html">Moderation</a></li><li class="chapter-item expanded "><a href="../../platforms/zulip/triagebot.html" class="active">Triagebot</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../core/index.html">Core</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../core/blogs.html">Rust Blog Guidelines</a></li><li class="chapter-item expanded "><a href="../../core/legal.html">Legal counsel</a></li></ol></li><li class="chapter-item expanded "><a href="../../community/index.html">Community</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../community/survey-faq.html">State of Rust Survey FAQ</a></li></ol></li><li class="chapter-item expanded "><a href="../../compiler/index.html">Compiler</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../compiler/cross-compilation/index.html">Cross Compilation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../compiler/cross-compilation/windows.html">Windows</a></li></ol></li><li class="chapter-item expanded "><a href="../../compiler/reviews.html">Review policies</a></li><li class="chapter-item expanded "><a href="../../compiler/new_option.html">So you want to add a new option to rustc?</a></li><li class="chapter-item expanded "><a href="../../compiler/mcp.html">Major Change Proposals</a></li><li class="chapter-item expanded "><a href="../../compiler/membership.html">Membership</a></li><li class="chapter-item expanded "><a href="../../compiler/notification-groups.html">Notification groups</a></li><li class="chapter-item expanded "><a href="../../compiler/triage-meeting.html">Triage Meeting</a></li><li class="chapter-item expanded "><a href="../../compiler/steering-meeting.html">Steering Meeting</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../compiler/steering-meeting/submit.html">Submitting a proposal</a></li><li class="chapter-item expanded "><a href="../../compiler/steering-meeting/how-to-run-planning.html">How to run the planning meeting</a></li><li class="chapter-item expanded "><a href="../../compiler/steering-meeting/how-to-run-design.html">How to run a design meeting</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../crates-io/index.html">crates.io</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../crates-io/crate-removal.html">Crate removal</a></li></ol></li><li class="chapter-item expanded "><a href="../../docs-rs/index.html">docs.rs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../docs-rs/add-dependencies.html">Adding dependencies to the build environment</a></li><li class="chapter-item expanded "><a href="../../docs-rs/no-docker-compose.html">Developing without docker-compose</a></li><li class="chapter-item expanded "><a href="../../docs-rs/self-hosting.html">Self-hosting a docs.rs instance</a></li><li class="chapter-item expanded "><a href="../../docs-rs/maintenance.html">Maintenance procedures</a></li><li class="chapter-item expanded "><a href="../../docs-rs/migrate-s3.html">Migrating from a local database to S3</a></li></ol></li><li class="chapter-item expanded "><a href="../../governance/index.html">Governance</a></li><li class="chapter-item expanded "><a href="../../infra/index.html">Infrastructure</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../infra/other-installation-methods.html">Other Installation Methods</a></li><li class="chapter-item expanded "><a href="../../infra/channel-layout.html">Release Channel Layout</a></li><li class="chapter-item expanded "><a href="../../infra/service-infrastructure.html">Service Infrastructure</a></li><li class="chapter-item expanded "><a href="../../infra/team-maintenance.html">Team Maintenance</a></li><li class="chapter-item expanded "><a href="../../infra/toolstate.html">The Toolstate System</a></li><li class="chapter-item expanded "><a href="../../infra/policies/index.html">Policies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../infra/policies/broken-nightlies.html">Broken nightlies</a></li></ol></li><li class="chapter-item expanded "><a href="../../infra/guidelines/index.html">Guidelines</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../infra/guidelines/static-websites.html">Static websites</a></li></ol></li><li class="chapter-item expanded "><a href="../../infra/docs/index.html">Documentation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../infra/docs/aws-access.html">AWS access for team members</a></li><li class="chapter-item expanded "><a href="../../infra/docs/aws-access-management.html">AWS access management</a></li><li class="chapter-item expanded "><a href="../../infra/docs/bastion.html">Bastion server</a></li><li class="chapter-item expanded "><a href="../../infra/docs/crater-agents.html">Crater agents</a></li><li class="chapter-item expanded "><a href="../../infra/docs/gha-self-hosted.html">Custom GitHub Actions runners</a></li><li class="chapter-item expanded "><a href="../../infra/docs/discord-mods-bot.html">Discord moderation bot</a></li><li class="chapter-item expanded "><a href="../../infra/docs/dns.html">Domain names and DNS</a></li><li class="chapter-item expanded "><a href="../../infra/docs/docs-rs.html">docs.rs</a></li><li class="chapter-item expanded "><a href="../../infra/docs/ecs-services.html">ECS services management</a></li><li class="chapter-item expanded "><a href="../../infra/docs/monitoring.html">Monitoring</a></li><li class="chapter-item expanded "><a href="../../infra/docs/rust-bots.html">rust-bots server</a></li><li class="chapter-item expanded "><a href="../../infra/docs/rustc-ci.html">rust-lang/rust CI</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../lang/index.html">Language</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../lang/rfc-merge-procedure.html">RFC Merge Procedure</a></li><li class="chapter-item expanded "><a href="../../lang/triage-meeting-procedure.html">Triage Meeting Procedure</a></li></ol></li><li class="chapter-item expanded "><a href="../../libs/index.html">Libs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../libs/maintaining-std.html">Maintaining the standard library</a></li></ol></li><li class="chapter-item expanded "><a href="../../release/index.html">Release</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../release/beta-backporting.html">Beta Backporting</a></li><li class="chapter-item expanded "><a href="../../release/platform-support.html">Platform Support</a></li><li class="chapter-item expanded "><a href="../../release/release-notes.html">Preparing Release Notes</a></li><li class="chapter-item expanded "><a href="../../release/process.html">Release Process</a></li><li class="chapter-item expanded "><a href="../../release/rollups.html">Rollup Procedure</a></li><li class="chapter-item expanded "><a href="../../release/triage-procedure.html">Triage Procedure</a></li><li class="chapter-item expanded "><a href="../../release/crater.html">Triaging Crater Runs</a></li></ol></li><li class="chapter-item expanded "><a href="../../archive/index.html">Archive</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../archive/fott.html">Friends of the Tree</a></li><li class="chapter-item expanded "><a href="../../archive/release-history.html">Release History</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust Forge</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        <a href="https://github.com/rust-lang/rust-forge" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#triagebot" id="triagebot">Triagebot</a></h1>
+<p>Triaging on the rust-lang repository is an important step to take care of issues. The triagebot is the tool that allows <em>anyone</em> to help by assigning, self-assigning or labeling issues without being a member of the rust-lang organization.</p>
+<p>To enable triagebot on a particular repository (currently only in the rust-lang organization), add a <code>triagebot.toml</code> file in the repository root. It should have a section per &quot;feature&quot;. Please read this page to learn how to enable each feature and the options supported; if you spot something missing please let us know <a href="https://github.com/rust-lang/rust-forge/issues">by filing an issue</a>, thanks!</p>
+<ul>
+<li><a href="#issue-assignment">Issue assignment</a></li>
+<li><a href="#issue-notifications">Issue notifications</a></li>
+<li><a href="#ping-a-team">Ping a team</a></li>
+<li><a href="#glacier">Glacier</a></li>
+<li><a href="#triage">Triage</a></li>
+<li><a href="#apply-labels-to-issues">Apply labels to issues</a></li>
+<li><a href="#request-prioritization">Request prioritization</a></li>
+<li><a href="#autolabel-an-issue">Autolabel an issue</a></li>
+<li><a href="#notify-zulip">Notify Zulip</a></li>
+<li><a href="#major-changes">Major Changes</a></li>
+</ul>
+<h2><a class="header" href="#issue-assignment" id="issue-assignment">Issue assignment</a></h2>
+<p>Any user belonging to the rust-lang organization can claim an issue via <code>@rustbot claim</code> or if the user is not part of the rust-lang organization <code>rustbot</code> will assign the issue to itself; then it will add a &quot;claimed&quot; message in the top-level comment, to signal who the current assignee is. It is possible to override someone else's claim (no warning/error is given).</p>
+<p>You can drop your claim to the issue via <code>@rustbot release-assignment</code>; Rust team members can do the same if they want to release someone else's assignment.</p>
+<p><code>@rustbot assign @user</code> can be used only by Rust team members and will assign that user to the issue (with same rules as before -- either directly or indirectly).</p>
+<p>Soon (when the &quot;highfive&quot; bot migration will be complete, see <a href="https://github.com/rust-lang/highfive/pull/258">rust-lang/highfive#258</a>), <code>r?</code> will also assign reviewers to PRs, though unlike issues, non-team members cannot be assigned. Anyone can invoke the command.</p>
+<p>To enable on a repository, add the following to a triagebot.toml file in the repository root.</p>
+<pre><code class="language-toml">[assign]
+</code></pre>
+<h2><a class="header" href="#issue-notifications" id="issue-notifications">Issue notifications</a></h2>
+<p>Each registered team member has a notifications page at:</p>
+<p><code>https://triage.rust-lang.org/notifications?user=&lt;github-username&gt;</code></p>
+<p>This page is populated from direct mentions (@user) and team mentions (@rust-lang/libs) across the rust-lang organization.</p>
+<p>It can also be edited via Zulip by <a href="https://rust-lang.zulipchat.com/#narrow/pm-with/261224-triage-rust-lang-bot">private-messaging triagebot</a>. Any Rust organization member can edit their notifications page, or pages of other Rust organization team members. To do so, the editor must have a <code>zulip-id</code> listed in their people/username.toml file in the <a href="https://github.com/rust-lang/team/">team repository</a>. The bot will tell you which ID to use when talking to it for the first time; please <code>r? @Mark-Simulacrum</code> on PRs adding Zulip IDs.</p>
+<p>The following commands are supported:</p>
+<ul>
+<li><code>acknowledge &lt;url&gt;</code> (or short form <code>ack &lt;url&gt;</code>)</li>
+<li><code>acknowledge &lt;idx&gt;</code> (or short form <code>ack &lt;idx&gt;</code>)</li>
+</ul>
+<p>These both acknowledge (and remove) a notification from the list.</p>
+<ul>
+<li><code>add &lt;url&gt; &lt;description... (multiple words)&gt;</code></li>
+</ul>
+<p>This adds a new notification to the list.</p>
+<ul>
+<li><code>move &lt;from&gt; &lt;to&gt;</code></li>
+</ul>
+<p>This moves the notification at index <code>from</code> to the index <code>to</code>.</p>
+<ul>
+<li><code>meta &lt;idx&gt; &lt;metadata...&gt;</code></li>
+</ul>
+<p>This adds some text as a sub-bullet to the notification at <code>idx</code>. If the metadata is empty, the text is removed.</p>
+<ul>
+<li><code>as &lt;github username&gt; &lt;command...&gt;</code></li>
+</ul>
+<p>This executes any of the above commands as if you were the other GH user.</p>
+<h2><a class="header" href="#ping-a-team" id="ping-a-team">Ping a team</a></h2>
+<p>The bot can be used to &quot;ping&quot; teams of people that do not have corresponding Github teams. This is useful because sometimes we want to keep groups of people that we can notify but we don't want to add all the members in those groups to the Github org, as that would imply that they are members of the Rust team (for example, Github would decorate their names with &quot;member&quot; and so forth). The compiler team uses this feature to reach the <a href="https://rustc-dev-guide.rust-lang.org/notification-groups/about.html">notification groups</a>.</p>
+<p>When a team is pinged, we will both post a message to the issue and add a label. The message will include a <code>cc</code> line that <code>@</code>-mentions all members of the team.</p>
+<h3><a class="header" href="#teams-that-can-be-pinged" id="teams-that-can-be-pinged">Teams that can be pinged</a></h3>
+<p>To be pinged, teams have to be created in the <a href="https://github.com/rust-lang/team">Rust team repository</a>. Frequently those teams will be marked as <code>marker-team</code>, meaning that they do not appear on the website. The <a href="https://github.com/rust-lang/team/blob/master/teams/icebreakers-llvm.toml#L2">LLVM team</a> is an example.</p>
+<h3><a class="header" href="#configuration" id="configuration">Configuration</a></h3>
+<p>To enable the team (e.g. <code>TeamName</code>) to be pinged, you have to add section to the <code>triagebot.toml</code> file at the root of a repository, like so:</p>
+<pre><code class="language-toml">[ping.TeamName]
+message = &quot;&quot;&quot;\
+Put your message here. It will be added as a Github comment,
+so it can include Markdown and other markup.
+&quot;&quot;&quot;
+label = &quot;help wanted&quot;
+</code></pre>
+<p>This configuration would post the given message and also add the label <code>help wanted</code> to the issue.</p>
+<p>You can also define aliases to add additional labels to refer to same target team. Aliases can be useful to add mnemonic labels or accomodate slight mispellings (such as &quot;llvms&quot; instead &quot;llvm&quot;), see the following example:</p>
+<pre><code class="language-toml">[ping.cleanup-crew]
+alias = [&quot;cleanup&quot;, &quot;cleanups&quot;, &quot;shrink&quot;, &quot;reduce&quot;, &quot;bisect&quot;]
+message = &quot;&quot;&quot;\
+message content...
+&quot;&quot;&quot;
+</code></pre>
+<p>This will allow the command <code>@rustbot ping cleanup-crew</code> to be understood with all the aliased variants, ex.:</p>
+<pre><code class="language-text">@rustbot ping cleanup
+@rustbot ping shrink
+...
+</code></pre>
+<p>Check out <a href="https://github.com/rust-lang/rust/blob/master/triagebot.toml">the rust-lang/rust configuration</a> for an up-to-date examples.</p>
+<h3><a class="header" href="#pinging-teams" id="pinging-teams">Pinging teams</a></h3>
+<p>To ping the team <code>XXX</code>, simply leave a comment with the command:</p>
+<pre><code class="language-text">@rustbot ping XXX
+</code></pre>
+<h3><a class="header" href="#related-issues" id="related-issues">Related issues</a></h3>
+<ul>
+<li>Requested in <a href="https://github.com/rust-lang/triagebot/issues/169">https://github.com/rust-lang/triagebot/issues/169</a></li>
+</ul>
+<h2><a class="header" href="#glacier" id="glacier">Glacier</a></h2>
+<p>This adds the option to track ICEs (Internal Compiler Errors). Do note that the GitHub Gist must be from a <a href="https://play.rust-lang.org">Rust Playground</a> link. The link must also be in quotes (<code>&quot;&quot;</code>), example:</p>
+<p><code>@rustbot glacier &quot;https://gist.github.com/rust-play/xxx&quot;</code></p>
+<p>where <code>xxx</code> is the SHA1 hash of the GitHub gist generated by the Playground &quot;share&quot; button.</p>
+<h2><a class="header" href="#triage" id="triage">Triage</a></h2>
+<p>This command can be used by people in charge of prioritizing issues, to assign either low or high priorities to issues. This is mostly done by the Compiler Prioritization WG for compiler bugs.</p>
+<p><code>@rustbot triage {high,medium,low}</code></p>
+<p>The configuration for this feature is:</p>
+<pre><code class="language-toml">[triage]
+remove = [&quot;I-prioritize&quot;] # the set of labels to remove when this command is invoked
+high = &quot;P-high&quot;
+medium = &quot;P-medium&quot;
+low = &quot;P-low&quot;
+</code></pre>
+<h2><a class="header" href="#apply-labels-to-issues" id="apply-labels-to-issues">Apply labels to issues</a></h2>
+<p>This command lets anyone apply labels to issues. This is most useful when opening an issue. In general, labels get applied to issues by the Triage WG. If you are interested in helping triaging issues, see the <a href="../../release/triage-procedure.html">Triage WG procedure</a>.</p>
+<p>The specific grammar can be found <a href="https://github.com/rust-lang/triagebot/blob/master/parser/src/command/relabel.rs">here</a>, but some examples are listed below. The grammar is intended to be fairly intuitive for people, to prevent needing to reach for documentation when using the bot.</p>
+<pre><code class="language-text">@rustbot modify labels to +T-lang, -T-compiler
+</code></pre>
+<p>This will remove the <code>T-compiler</code> label and add the <code>T-lang</code> label. You can also omit the <code>+</code> sign, if you want, and it'll be implied.</p>
+<p>You can also write the same command in a few other ways:</p>
+<pre><code class="language-text">@rustbot modify labels to +T-lang and -T-compiler
+@rustbot modify labels: +T-lang and -T-compiler
+@rustbot modify labels to +T-lang -T-compiler
+</code></pre>
+<p>Note that the command can either terminate with a <code>.</code> or a newline, otherwise the bot will not parse the command successfully.</p>
+<h3><a class="header" href="#errors" id="errors">Errors</a></h3>
+<p>The bot currently restricts the labels that can be applied by people outside the Rust teams. For example, they can't add the I-unsound label. Most of the time, you shouldn't hit this. Feel free to ping the release team if you feel that a label should be added to the set of allowed labels!</p>
+<h3><a class="header" href="#enabling" id="enabling">Enabling</a></h3>
+<pre><code class="language-toml">[relabel]
+# any label is allowed to be set by team members (anyone on a team in rust-lang/team)
+# but these can be set by anyone in the world
+allow-unauthenticated = [
+    &quot;C-*&quot;, # any C- prefixed label will be allowed for anyone
+           # independent of authorization with rust-lang/team
+    &quot;!C-bug&quot;, # but not C-bug (order does not matter)
+]
+</code></pre>
+<h2><a class="header" href="#request-prioritization" id="request-prioritization">Request prioritization</a></h2>
+<p>Users can request an issue to be prioritized by the Prioritization WG.</p>
+<p>To do so, you can invoke the following command:</p>
+<pre><code class="language-text">@rustbot prioritize
+</code></pre>
+<p>This will simply add the <code>I-prioritize</code> label to the issue.</p>
+<h3><a class="header" href="#errors-1" id="errors-1">Errors</a></h3>
+<p>The command fails if the issue has already been requested for prioritization (i.e. already has the <code>I-prioritize</code> label).</p>
+<h3><a class="header" href="#enabling-1" id="enabling-1">Enabling</a></h3>
+<pre><code class="language-toml">[prioritize]
+# Name of the label used for requesting prioritization on issues
+label = &quot;I-prioritize&quot;
+</code></pre>
+<h2><a class="header" href="#autolabel-an-issue" id="autolabel-an-issue">Autolabel an issue</a></h2>
+<p>When certain labels are added to an issue, this command will trigger adding a set of additional prioritization labels to the issue. In the following example adding the &quot;I-prioritize&quot; label will automatically add the labels in <code>trigger_labels</code> but only if the issue is not already labeled with those in <code>exclude_labels</code> (this is to avoid applying unrelated labels to issues).</p>
+<pre><code class="language-toml">[autolabel.&quot;I-prioritize&quot;]
+trigger_labels = [
+    &quot;regression-from-stable-to-stable&quot;,
+    &quot;regression-from-stable-to-beta&quot;,
+    &quot;regression-from-stable-to-nightly&quot;
+]
+exclude_labels = [
+    &quot;P-*&quot;,
+    &quot;T-infra&quot;,
+    &quot;T-release&quot;
+]
+</code></pre>
+<h2><a class="header" href="#notify-zulip" id="notify-zulip">Notify Zulip</a></h2>
+<p>When a prioritization label is added to an issue, this command will create a new topic on Zulip, in the designated stream (&quot;245100&quot; in the following example), replacing <code>{number}</code> and <code>{title}</code> with the issue GitHub ID and title:</p>
+<pre><code class="language-toml">[notify-zulip.&quot;I-prioritize&quot;]
+zulip_stream = 245100 # t-compiler/wg-prioritization/alerts
+topic = &quot;I-prioritize #{number} {title}&quot;
+message_on_add = &quot;@**WG-prioritization** issue #{number} has been requested for prioritization.&quot;
+message_on_remove = &quot;Issue #{number}'s prioritization request has been removed.&quot;
+</code></pre>
+<p>The subscribers of that Zulip stream will receive a notification and can discuss the prioritization of the issue.</p>
+<h2><a class="header" href="#major-changes" id="major-changes">Major Changes</a></h2>
+<p>A major change is an issue that will have a big impact on users. See <a href="../../compiler/mcp.html">this page on the MCP process</a> for detailed explanations.</p>
+<p>The compiler team uses the major change process, which requires:</p>
+<ul>
+<li>An issue</li>
+<li>A &quot;second&quot;, who is an expert from the Compiler team who thinks the proposal is a good idea</li>
+</ul>
+<p>We have supporting automation for both parts.</p>
+<p>First, on the rust-lang/compiler-team repository, an issue with the &quot;major-change&quot; label (MCP = Major Change Proposal) is created via the template. Once that's opened, it automatically gains the &quot;to-announce&quot; label which should be removed when it's announced at a compiler team meeting.</p>
+<p>For seconds, you tell rustbot <code>@rustbot seconded</code> or <code>@rustbot second</code> and it will apply the relevant label. Only team members can do so.</p>
+<p>Configuration:</p>
+<pre><code class="language-toml">[major-change]
+# Label to apply once an MCP is seconded
+second_label = &quot;final-comment-period&quot;
+# Label to apply when an MCP is created
+meeting_label = &quot;to-announce&quot;
+# The Zulip stream to automatically create topics about MCPs in
+# Can be found by looking for the first number in URLs, e.g. https://rust-lang.zulipchat.com/#narrow/stream/131828-t-compiler
+zulip_stream = 131828
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../platforms/zulip/moderation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../core/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../platforms/zulip/moderation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../core/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="../../js/moment.min.js"></script>
+        
+        <script type="text/javascript" src="../../js/index.js"></script>
+        
+
+        
+
+    </body>
+</html>
